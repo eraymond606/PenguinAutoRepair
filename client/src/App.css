@@ -1,0 +1,21 @@
+/* global */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f6f6f6;
+  color: #333;
+  text-align: center;
+}
+
+/* home */
+.home {
+  margin-top: 3rem;
+}
+
+.home h1 {
+  font-size: 2.5rem;
+  color: #45a8da; 
+}
+
+

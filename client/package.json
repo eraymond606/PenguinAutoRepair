@@ -1,0 +1,19 @@
+{
+  "name": "client",
+  "private": true,
+  "proxy": "http://localhost:5000",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.26.0",
+    "axios": "^1.7.2",
+    "react-scripts": "^5.0.1"
+  }
+}
+
