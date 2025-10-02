@@ -1,3 +1,26 @@
+:root {
+  --mobile-max: 420px;
+  --page-pad-x: 20px;
+  --page-pad-y: 24px;
+}
+
+.mobile-frame {
+  position: relative;
+  min-height: 100vh;
+  max-width: var(--mobile-max);
+  margin: 0 auto;
+  padding: var(--page-pad-y) var(--page-pad-x) 32px;
+  overflow: hidden;
+  background: #fff;
+}
+
+@media (min-width: 481px) {
+  .mobile-frame {
+    border-radius: 16px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+  }
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;

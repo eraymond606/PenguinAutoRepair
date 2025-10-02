@@ -1,0 +1,117 @@
+/* container */
+.lookup-screen {
+  position: relative;
+  min-height: 100vh;
+  background: #fff;
+  max-width: 420px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* all content sits ABOVE bubbles */
+.lookup-content {
+  position: relative;
+  z-index: 1;
+  padding: 0px 20px 32px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* back link */
+.back-link {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: #0b4f7a;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.lookup-logo {
+  display: block;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  margin: 24px auto 6px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.lookup-title {
+  margin: 50px 0 20px;
+  font-size: 18px;
+  color: #2b5f85;
+  font-weight: 800;
+}
+
+/* Form */
+.lookup-form {
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto;
+  display: grid;
+  gap: 12px;
+}
+
+.lookup-input {
+  display: block;
+  width: 90%;
+  max-width: 280px;
+  height: 100%;
+  max-height: 20px;
+  background: #ffffff;         
+  color: #1c2b36;
+  border: 1px solid #d6e3ee;
+  border-radius: 20px;
+  padding: 10px 14px;
+  font-size: 14px;
+  outline: none;
+  box-shadow: 0 3px 6px rgba(13, 79, 122, 0.12);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lookup-input::placeholder {
+  color: #8aa7bc;
+  font-size: 13px;
+}
+
+.lookup-input:focus {
+  border-color: #2f86b6;
+  box-shadow: 0 0 0 3px rgba(47,134,182,0.18);
+}
+
+/* Submit button */
+.lookup-submit {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: 44px;
+  max-width: 130px;
+  margin: 14px auto 0;
+  background: #005f99;
+  color: #fff;
+  border: none;
+  border-radius: 22px;
+  padding: 10px 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0, 41, 66, 0.25);
+  transition: background 0.2s ease, transform 0.2s ease;
+  margin-top: 14px auto 0;
+}
+
+.lookup-submit:hover {
+  background: #0b4f7a;
+  transform: translateY(-2px);
+}
+
+
+/* keep it mobile */
+@media (min-width: 481px) {
+}
+

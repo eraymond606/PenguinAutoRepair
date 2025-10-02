@@ -8,3 +8,5 @@ const api = axios.create({
 
 export const getHealth = () => api.get('/health');
 export default api;
+export const lookupCustomer = (payload) => api.post('/customers/lookup', payload);
+

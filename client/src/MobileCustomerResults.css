@@ -1,0 +1,117 @@
+.results-screen {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* keep UI above bubbles */
+.results-screen .back-link,
+.results-logo,
+.greeting,
+.section-title,
+.vehicle-list {
+  position: relative;
+  z-index: 1;
+}
+
+/* Back top-left */
+.results-screen .back-link {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: #0b4f7a;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Logo centered */
+.results-logo {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 28px auto 8px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+/* Hello header */
+.greeting {
+  margin: 2px 0 10px;
+  text-align: center;
+}
+.greeting .hello {
+  color: #2d79a8;
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 1;
+}
+.greeting .name {
+  color: #111;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+/* Section title */
+.section-title {
+  margin: 16px 0 12px;
+  font-size: 18px;
+  color: #2b5f85;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* Vehicle list grid */
+.vehicle-list {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto 24px;
+}
+
+/* Vehicle card look */
+.vehicle-card {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #d6e3ee;
+  border-radius: 14px;
+  padding: 14px 16px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 6px 10px rgba(13, 79, 122, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.vehicle-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 16px rgba(13, 79, 122, 0.18);
+}
+.vehicle-line {
+  color: #16384f;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Add new vehicle card */
+.add-card {
+  display: grid;
+  place-items: center;
+}
+.add-card .plus {
+  font-size: 28px;
+  line-height: 1;
+  color: #2b5f85;
+  font-weight: 800;
+}
+
+/* Empty note */
+.empty-note {
+  text-align: center;
+  color: #6a8598;
+  font-size: 14px;
+  padding: 10px 0;
+}
