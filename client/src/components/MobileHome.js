@@ -54,7 +54,7 @@ export default function MobileHome() {
 
       <button 
         className="schedule-btn"
-        onClick={() => navigate('/mobile/lookup')}
+        onClick={() => navigate('/mobile/login')}
       >
         Schedule Service
       </button>

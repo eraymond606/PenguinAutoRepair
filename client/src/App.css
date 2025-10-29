@@ -18,4 +18,28 @@ body {
   color: #45a8da; 
 }
 
+.mobile-frame { position: relative; }
+
+/* Global back-link style used by all pages */
+.back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+
+  color: #1e6fa1;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  text-decoration: none; 
+}
+
+.back-link:hover { text-decoration: underline; }
+
+
 

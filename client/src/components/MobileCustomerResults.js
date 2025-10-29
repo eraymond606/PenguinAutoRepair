@@ -92,10 +92,8 @@ export default function MobileCustomerResults() {
           <button
             key={v.vehicle_id ?? v.id}
             className="vehicle-card"
-            onClick={() => {
-              // TODO: navigate to next step with selected vehicle
-              console.log('vehicle selected', v);
-            }}
+            onClick={() => navigate('/mobile/schedule', { state: { customer, vehicle: v } })}
+
           >
             <div className="vehicle-line">
               {[

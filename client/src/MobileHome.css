@@ -10,8 +10,16 @@
 }
 
 /* Headings + logo */
-.mobile-logo { width: 100px; height: 100px; object-fit: contain; }
-.logo-section h2 { margin: 6px 0 4px; font-size: 18px; color: #303030; }
+.mobile-logo { 
+  width: 100px; 
+  height: 100px; 
+  object-fit: contain; 
+}
+.logo-section h2 { 
+  margin: 6px 0 4px; 
+  font-size: 18px; 
+  color: #303030; 
+}
 .logo-section h1 {
   margin: 0 0 8px;
   font-size: 22px;

@@ -1,0 +1,84 @@
+
+/* page container */
+.schedule-screen {
+  position: relative;
+  background: #fff;
+}
+
+/* keep content above bubbles */
+.schedule-screen .back-link,
+.sched-logo,
+.sched-title,
+.sched-form {
+  position: relative;
+  z-index: 1;
+}
+
+.schedule-screen .back-link {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: none;
+  border: 0;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  color: #1e6fa1;
+  padding: 0;
+  z-index: 2;
+}
+
+/* standard layout */
+.sched-logo {
+  display: block;
+  width: 100px;
+  height: 100px;
+  margin: 28px auto 8px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.sched-title {
+  text-align: center;
+  color: #0c4c77;
+  font-size: 20px;
+  font-weight: 800;
+  margin: 4px 0 14px;
+}
+
+.sched-form {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+
+.sched-select {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #d6e3ee;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  box-shadow: 0 3px 8px rgba(13,79,122,.12);
+  padding-right: 32px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%231c2b36' viewBox='0 0 16 16'><path d='M3 6l5 5 5-5H3z'/></svg>");
+  background-position: right 14px center;
+  background-repeat: no-repeat;
+}
+
+.sched-submit {
+  background: #005f99;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 18px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(0,41,66,.25);
+  cursor: pointer;
+}
+
+.mobile-frame { position: relative; max-width: 390px; margin: 0 auto; }
+.bubbles { position: absolute; inset: 0; z-index: 0; pointer-events: none; }

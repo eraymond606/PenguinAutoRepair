@@ -1,0 +1,65 @@
+.newveh-screen { 
+    position: relative; 
+    background: #fff; 
+}
+.newveh-screen, .nv-logo, .nv-title, .nv-form { 
+    position: relative; 
+    z-index: 1; 
+}
+
+.nv-logo {
+    display: block; 
+    width: 100px; 
+    height: 100px; 
+    margin: 28px auto 8px;
+    object-fit: contain; 
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.nv-title {
+    text-align: center; 
+    color: #0c4c77; 
+    font-size: 20px; 
+    font-weight: 800;
+    margin: 4px 0 14px;
+}
+
+.nv-form { 
+    width: 100%; 
+    max-width: 320px; 
+    margin: 0 auto; 
+    display: grid; 
+    gap: 12px; 
+}
+
+.nv-input {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    background: #fff; 
+    border: 1px solid #d6e3ee; 
+    border-radius: 22px;
+    padding: 12px 16px; 
+    font-size: 15px; 
+    outline: none;
+    box-shadow: 0 4px 10px rgba(13, 79, 122, 0.12);
+}
+
+.nv-submit {
+    width: 90%;            
+    margin: 0 auto;        
+    display: block;
+    background: #005f99; 
+    color: #fff; 
+    border: none; 
+    border-radius: 28px;
+    padding: 12px 22px; 
+    font-size: 16px; 
+    font-weight: 700; 
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(0, 41, 66, 0.25);
+}
+.nv-submit[disabled] {
+    opacity: .7; 
+    cursor: default; 
+}
