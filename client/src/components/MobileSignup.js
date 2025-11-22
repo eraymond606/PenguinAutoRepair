@@ -26,6 +26,15 @@ export default function MobileSignup() {
     if (!value || value.length < MIN_LEN) {
       return `Password must be at least ${MIN_LEN} characters.`;
     }
+    if (!/[A-Z]/.test(value)) {
+      return 'Password must contain at least one capital letter.';
+    }
+    if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(value)) {
+      return 'Password must contain at least one symbol.';
+    }
+    if (!/[0-9]/.test(value)) {
+      return 'Password must contain at least one number.';
+    }
     return '';
   };
 
@@ -65,8 +74,7 @@ const onSubmit = async (e) => {
     }
 
   setLoading(true);
-  setLoading(true);
-    try {
+  try {
       const { data } = await authSignup(form);
       if (data?.ok) {
         // success → route user to login
@@ -171,7 +179,7 @@ const onSubmit = async (e) => {
             </div>
           )}
           <div id="password-requirements" className="req-text">
-            Password requirements: at least <b>{MIN_LEN}</b> characters.
+            Password requirements: at least <b>{MIN_LEN}</b> characters, at least one capital letter, at least one symbol (! _ +, *, or =), and at least one number (1-9).
           </div>
         </div>
 

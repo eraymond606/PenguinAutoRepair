@@ -1,0 +1,72 @@
+/*
+  Penguin Auto Repair - Global Style Configuration
+  Use these CSS variables throughout the app for consistency
+*/
+
+:root {
+  /* Primary Brand Colors */
+  --primary-blue: #0d5a8a;
+  --primary-blue-dark: #094a72;
+  --primary-blue-light: #1e6fa1;
+
+  /* Neutral Colors */
+  --white: #ffffff;
+  --gray-light: #f5f5f5;
+  --gray-medium: #e8e8e8;
+  --gray-dark: #666666;
+  --gray-border: #e0e0e0;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+
+  /* Status Colors */
+  --success: #28a745;
+  --error: #dc3545;
+  --warning: #ffc107;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-xxl: 24px;
+  --spacing-xxxl: 32px;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 24px;
+
+  /* Typography */
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-xxl: 24px;
+  --font-size-xxxl: 32px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 6px 12px rgba(0, 0, 0, 0.2);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+  --transition-slow: 0.3s ease;
+
+  /* Z-index layers */
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal: 40;
+  --z-popover: 50;
+  --z-tooltip: 60;
+}

@@ -60,7 +60,7 @@ export default function MobileLogin() {
         <span className="bubble s s4"></span>
       </div>
 
-      <button className="back-link" onClick={() => navigate(-1)}>Back</button>
+      <button className="back-link" onClick={() => navigate('/mobile')}>Back</button>
 
       <img src={logo192} alt="Penguin Mechanic" className="login-logo" />
 

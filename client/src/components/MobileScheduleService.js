@@ -32,12 +32,25 @@ export default function MobileScheduleService() {
     return () => { mounted = false; };
   }, []);
 
-  const submit = (e) => {
-    e.preventDefault();
-    if (!selected) return alert('Please select a service.');
-    // navigate('/mobile/schedule/time', { state: { customer: customerSafe, vehicle, service_id: selected } });
-    alert(`Selected service_id=${selected} for vehicle_id=${vehicle?.vehicle_id}`);
-  };
+ const submit = (e) => {
+  e.preventDefault();
+  if (!selected) return alert('Please select a service.');
+
+  // find the full service object
+  const svc = services.find(
+    (s) => String(s.service_id) === String(selected)
+  );
+
+  navigate('/mobile/schedule/date', {
+    state: {
+      customer: customerSafe,
+      vehicle,
+      service_id: selected,
+      service: svc || null,   // pass service for name/price
+    },
+  });
+};
+
 
 return (
   <div className="mobile-frame schedule-screen">
@@ -62,20 +75,26 @@ return (
     <h3 className="sched-title">Select Service</h3>
 
     <form className="sched-form" onSubmit={submit}>
-      <select
-        className="sched-select"
-        value={selected}
-        onChange={(e) => setSelected(e.target.value)}
-      >
-        <option value="">Service</option>
-        {services.map(s => (
-          <option key={s.service_id} value={s.service_id}>
-            {s.name} · ${Number(s.hourly_rate).toFixed(2)} × {s.default_hours}h
-          </option>
-        ))}
-      </select>
+  <label htmlFor="service-select" className="sched-label">
+    Please select a service
+  </label>
 
-      <button type="submit" className="sched-submit">Continue</button>
-    </form>
+  <select
+    id="service-select"
+    className="sched-select"
+    value={selected}
+    onChange={(e) => setSelected(e.target.value)}
+  >
+    <option value="">Service</option>
+    {services.map(s => (
+      <option key={s.service_id} value={s.service_id}>
+        {s.name} · ${Number(s.hourly_rate).toFixed(2)} × {s.default_hours}h
+      </option>
+    ))}
+  </select>
+
+  <button type="submit" className="sched-submit">Continue</button>
+</form>
+
   </div>
 )};

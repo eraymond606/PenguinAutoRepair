@@ -46,6 +46,16 @@
   margin: 4px 0 14px;
 }
 
+.sched-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2b5f85;
+  margin-bottom: -6px;      /* pulls label closer to dropdown */
+  margin-left: 4px;
+  text-align: left;
+  display: block;           /* ensures full-width alignment with select */
+}
+
 .sched-form {
   width: 100%;
   max-width: 320px;
@@ -71,6 +81,8 @@
 
 .sched-submit {
   background: #005f99;
+  width: 80%;
+  margin: auto;
   color: #fff;
   border: none;
   border-radius: 24px;

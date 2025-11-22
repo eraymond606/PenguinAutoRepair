@@ -1,0 +1,184 @@
+.manager-appointments-screen {
+  background: #f5f5f5;
+  min-height: 100vh;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.manager-header {
+  background: white;
+  padding: 20px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.manager-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0d5a8a;
+  margin: 0;
+  flex: 1;
+}
+
+.hamburger-menu {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  order: 2;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 3px;
+  background: #0d5a8a;
+  border-radius: 2px;
+}
+
+.appointments-list {
+  padding: 16px;
+}
+
+.loading-message,
+.no-appointments {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+.week-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  margin-top: 8px;
+}
+
+.week-text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0d5a8a;
+}
+
+.week-dates {
+  font-size: 14px;
+  color: #666;
+}
+
+.day-card {
+  width: 100%;
+  background: #0d5a8a;
+  border: none;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.day-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.day-card:active {
+  transform: translateY(0);
+}
+
+.day-date {
+  font-size: 18px;
+  font-weight: 500;
+  color: white;
+}
+
+.day-count {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+.expanded-appointments {
+  background: #e8e8e8;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.upcoming-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0d5a8a;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.loading-appts {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.appts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.appt-card {
+  width: 100%;
+  background: #0d5a8a;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.appt-card:hover {
+  transform: translateX(4px);
+  opacity: 0.9;
+}
+
+.appt-card:active {
+  transform: translateX(2px);
+}
+
+.appt-customer {
+  font-size: 17px;
+  font-weight: 500;
+  color: white;
+}
+
+.appt-time {
+  font-size: 17px;
+  font-weight: 600;
+  color: white;
+}

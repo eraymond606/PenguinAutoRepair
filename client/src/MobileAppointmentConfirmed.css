@@ -1,0 +1,77 @@
+/* --- final confirmation screen --- */
+.confirm-done-screen {
+  position: relative;
+  background: #fff;
+}
+
+/* keep content above bubbles */
+.confirm-done-screen,
+.confirm-done-logo,
+.confirm-done-icon,
+.confirm-done-text,
+.confirm-done-btn {
+  position: relative;
+  z-index: 1;
+}
+
+.confirm-done-logo {
+  display: block;
+  width: 110px;
+  height: 110px;
+  margin: 28px auto 10px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.confirm-done-icon {
+  width: 90px;
+  height: 90px;
+  margin: 24px auto 18px;
+  border-radius: 50%;
+  background: #005f99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 42px;
+  box-shadow: 0 8px 18px rgba(0,41,66,0.25);
+}
+
+.confirm-done-text {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #000000;
+  margin-bottom: 32px;
+}
+
+.confirm-done-btn {
+  display: block;
+  width: 80%;
+  max-width: 320px;
+  margin: 0 auto 24px;
+  background: #005f99;
+  color: #ffffff;
+  border: none;
+  border-radius: 28px;
+  padding: 12px 22px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,41,66,0.25);
+}
+
+/* Back top-left */
+.back-link {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: #0b4f7a;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}

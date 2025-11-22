@@ -98,6 +98,87 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
+// POST /api/employee/login  { technician_id, password }
+app.post('/api/employee/login', async (req, res) => {
+  if (!pool) return res.status(503).json({ ok: false, error: 'db-not-configured' });
+  const { technician_id, password } = req.body || {};
+
+  if (!technician_id || !password) {
+    return res.status(400).json({ ok: false, error: 'missing-fields' });
+  }
+
+  try {
+    // Get technician and password hash
+    const authRes = await pool.query(
+      `SELECT t.technician_id, t.first_name, t.last_name, t.phone, t.email, t.position, t.hourly_wage, ta.password_hash
+       FROM technicians t
+       INNER JOIN technician_auth ta ON t.technician_id = ta.technician_id
+       WHERE t.technician_id = $1
+       LIMIT 1`,
+      [technician_id]
+    );
+
+    if (authRes.rowCount === 0) {
+      return res.status(401).json({ ok: false, error: 'invalid-credentials' });
+    }
+
+    const row = authRes.rows[0];
+    const { password_hash, ...technician } = row;
+
+    // Verify password with bcrypt
+    const passwordMatch = await bcrypt.compare(password, password_hash);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ ok: false, error: 'invalid-credentials' });
+    }
+
+    return res.json({ ok: true, technician });
+  } catch (err) {
+    console.error('[employee/login error]', err);
+    return res.status(500).json({ ok: false, error: 'server-error' });
+  }
+});
+
+// POST /api/employee/reset-password  { email, new_password }
+app.post('/api/employee/reset-password', async (req, res) => {
+  if (!pool) return res.status(503).json({ ok: false, error: 'db-not-configured' });
+  const { email, new_password } = req.body || {};
+
+  if (!email || !new_password) {
+    return res.status(400).json({ ok: false, error: 'missing-fields' });
+  }
+
+  try {
+    // Find technician by email
+    const techRes = await pool.query(
+      `SELECT technician_id FROM technicians WHERE LOWER(email) = LOWER($1) LIMIT 1`,
+      [email]
+    );
+
+    if (techRes.rowCount === 0) {
+      return res.status(404).json({ ok: false, error: 'email-not-found' });
+    }
+
+    const technician_id = techRes.rows[0].technician_id;
+
+    // Hash the new password
+    const password_hash = await bcrypt.hash(new_password, 10);
+
+    // Update or insert password
+    await pool.query(
+      `INSERT INTO technician_auth (technician_id, password_hash)
+       VALUES ($1, $2)
+       ON CONFLICT (technician_id) DO UPDATE SET password_hash = $2`,
+      [technician_id, password_hash]
+    );
+
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('[employee/reset-password error]', err);
+    return res.status(500).json({ ok: false, error: 'server-error' });
+  }
+});
+
 // POST /api/auth/signup  { first_name, last_name, email, phone, password }
 app.post('/api/auth/signup', async (req, res) => {
   if (!pool) return res.status(503).json({ ok: false, error: 'db-not-configured' });
@@ -256,6 +337,507 @@ app.get('/api/services', async (_req, res) => {
   }
 });
 
+// GET /api/appointments/availability?service_id=X&date=YYYY-MM-DD
+app.get('/api/appointments/availability', async (req, res) => {
+  if (!pool) {
+    return res.status(503).json({ ok: false, error: 'db-not-configured' });
+  }
+
+  const { service_id, date } = req.query;
+
+  if (!service_id || !date) {
+    return res.status(400).json({ ok: false, error: 'missing-parameters' });
+  }
+
+  try {
+    // Get service duration
+    const svc = await pool.query(
+      'SELECT default_hours FROM services WHERE service_id = $1',
+      [service_id]
+    );
+
+    if (svc.rowCount === 0) {
+      return res.status(404).json({ ok: false, error: 'service-not-found' });
+    }
+
+    const serviceHours = svc.rows[0].default_hours || 1;
+
+    // Check if there are any qualified technicians
+    const qualifiedCount = await pool.query(
+      `SELECT COUNT(*) as tech_count
+       FROM technician_services
+       WHERE service_id = $1`,
+      [service_id]
+    );
+
+    const hasQualifiedTechs = parseInt(qualifiedCount.rows[0].tech_count) > 0;
+
+    // Get all appointments for the specified date
+    const appointments = await pool.query(
+      `SELECT start_time, end_time
+       FROM appointments
+       WHERE DATE(start_time) = $1
+       ORDER BY start_time`,
+      [date]
+    );
+
+    // Generate business hours (e.g., 8 AM to 5 PM in 30-minute slots)
+    const slots = [];
+    for (let hour = 8; hour < 17; hour++) {
+      for (let minute of [0, 30]) {
+        if (hour === 16 && minute === 30) break; // stop at 4:30 PM for last slot
+
+        const slotStart = `${date} ${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:00`;
+
+        // Calculate slot end time
+        const endTimeResult = await pool.query(
+          `SELECT $1::timestamp + ($2 || ' hours')::interval AS end_time`,
+          [slotStart, serviceHours]
+        );
+        const slotEnd = endTimeResult.rows[0].end_time;
+
+        // Count overlapping appointments
+        const overlapping = appointments.rows.filter(appt => {
+          const apptStart = new Date(appt.start_time);
+          const apptEnd = new Date(appt.end_time);
+          const checkStart = new Date(slotStart);
+          const checkEnd = new Date(slotEnd);
+
+          return apptStart < checkEnd && apptEnd > checkStart;
+        });
+
+        const available = hasQualifiedTechs && overlapping.length < 3;
+
+        slots.push({
+          start_time: slotStart,
+          end_time: slotEnd.toISOString(),
+          available,
+          bookings: overlapping.length,
+          max_bookings: 3
+        });
+      }
+    }
+
+    return res.json({
+      ok: true,
+      service_id,
+      date,
+      service_duration_hours: serviceHours,
+      has_qualified_technicians: hasQualifiedTechs,
+      slots
+    });
+  } catch (err) {
+    console.error('[appointments/availability error]', err);
+    return res.status(500).json({ ok: false, error: 'server-error' });
+  }
+});
+
+// POST /api/appointments  { customer_id, vehicle_id, service_id, start_time }
+app.post('/api/appointments', async (req, res) => {
+  if (!pool) {
+    return res.status(503).json({ ok: false, error: 'db-not-configured' });
+  }
+
+  const { customer_id, vehicle_id, service_id, start_time } = req.body || {};
+
+  if (!customer_id || !vehicle_id || !service_id || !start_time) {
+    return res.status(400).json({ ok: false, error: 'missing-fields' });
+  }
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // Get service details to calculate end_time
+    const svc = await client.query(
+      'SELECT service_id, default_hours FROM services WHERE service_id = $1',
+      [service_id]
+    );
+
+    if (svc.rowCount === 0) {
+      await client.query('ROLLBACK');
+      return res.status(404).json({ ok: false, error: 'service-not-found' });
+    }
+
+    const service = svc.rows[0];
+    const serviceHours = service.default_hours || 1;
+
+    // Calculate end_time using PostgreSQL interval
+    const endTimeResult = await client.query(
+      `SELECT $1::timestamp + ($2 || ' hours')::interval AS end_time`,
+      [start_time, serviceHours]
+    );
+    const end_time = endTimeResult.rows[0].end_time;
+
+    // Find technicians qualified for this service
+    const qualifiedTechs = await client.query(
+      `SELECT t.technician_id, t.first_name, t.last_name
+       FROM technicians t
+       INNER JOIN technician_services ts ON t.technician_id = ts.technician_id
+       WHERE ts.service_id = $1`,
+      [service_id]
+    );
+
+    if (qualifiedTechs.rowCount === 0) {
+      await client.query('ROLLBACK');
+      return res.status(422).json({
+        ok: false,
+        error: 'no-qualified-technicians',
+        message: 'No technicians are qualified for this service'
+      });
+    }
+
+    // Check time slot availability (max 3 concurrent appointments)
+    // An appointment conflicts if its time range overlaps with the requested slot
+    const conflictingAppts = await client.query(
+      `SELECT COUNT(*) as conflict_count
+       FROM appointments
+       WHERE start_time < $1 AND end_time > $2`,
+      [end_time, start_time]
+    );
+
+    const currentBookings = parseInt(conflictingAppts.rows[0].conflict_count);
+    if (currentBookings >= 3) {
+      await client.query('ROLLBACK');
+      return res.status(409).json({
+        ok: false,
+        error: 'time-slot-full',
+        message: 'This time slot is fully booked. Maximum 3 appointments per time slot.'
+      });
+    }
+
+    // Find available technician (one who isn't booked during this time range)
+    const availableTech = await client.query(
+      `SELECT t.technician_id, t.first_name, t.last_name
+       FROM technicians t
+       INNER JOIN technician_services ts ON t.technician_id = ts.technician_id
+       WHERE ts.service_id = $1
+       AND NOT EXISTS (
+         SELECT 1 FROM appointments a
+         WHERE a.technician_id = t.technician_id
+         AND a.start_time < $2
+         AND a.end_time > $3
+       )
+       LIMIT 1`,
+      [service_id, end_time, start_time]
+    );
+
+    if (availableTech.rowCount === 0) {
+      await client.query('ROLLBACK');
+      return res.status(409).json({
+        ok: false,
+        error: 'no-available-technicians',
+        message: 'All qualified technicians are booked for this time slot'
+      });
+    }
+
+    const assignedTech = availableTech.rows[0];
+
+    // Create appointment with assigned technician
+    const result = await client.query(
+      `INSERT INTO appointments (customer_id, vehicle_id, service_id, start_time, end_time, technician_id)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING appointment_id, technician_id`,
+      [customer_id, vehicle_id, service_id, start_time, end_time, assignedTech.technician_id]
+    );
+
+    await client.query('COMMIT');
+
+    return res.status(201).json({
+      ok: true,
+      appointment_id: result.rows[0].appointment_id,
+      technician_id: result.rows[0].technician_id,
+      technician_name: `${assignedTech.first_name} ${assignedTech.last_name}`,
+      start_time,
+      end_time
+    });
+  } catch (err) {
+    await client.query('ROLLBACK');
+    console.error('[appointments/create error]', err);
+    return res.status(500).json({ ok: false, error: 'server-error' });
+  } finally {
+    client.release();
+  }
+});
+
+// GET /api/appointments/grouped-by-date - Get all appointments grouped by date
+app.get('/api/appointments/grouped-by-date', async (req, res) => {
+  if (!pool) {
+    return res.status(503).json({ ok: false, error: 'db-not-configured' });
+  }
+
+  try {
+    const result = await pool.query(
+      `SELECT
+         DATE(a.start_time) as date,
+         COUNT(*) as count
+       FROM appointments a
+       WHERE a.start_time >= CURRENT_DATE
+       GROUP BY DATE(a.start_time)
+       ORDER BY date ASC
+       LIMIT 30`
+    );
+
+    return res.json({
+      ok: true,
+      dates: result.rows
+    });
+  } catch (err) {
+    console.error('[appointments/grouped-by-date error]', err);
+    return res.status(500).json({ ok: false, error: 'server-error' });
+  }
+});
+
+// GET /api/appointments/by-date?date=YYYY-MM-DD - Get appointments for a specific date
+app.get('/api/appointments/by-date', async (req, res) => {
+  if (!pool) {
+    return res.status(503).json({ ok: false, error: 'db-not-configured' });
+  }
+
+  const { date } = req.query;
+
+  if (!date) {
+    return res.status(400).json({ ok: false, error: 'missing-date' });
+  }
+
+  try {
+    const result = await pool.query(
+      `SELECT
+         a.appointment_id,
+         a.start_time,
+         a.end_time,
+         a.status,
+         c.customer_id,
+         c.first_name,
+         c.last_name,
+         s.name as service_name,
+         t.technician_id,
+         t.first_name as tech_first_name,
+         t.last_name as tech_last_name
+       FROM appointments a
+       INNER JOIN customers c ON a.customer_id = c.customer_id
+       INNER JOIN services s ON a.service_id = s.service_id
+       LEFT JOIN technicians t ON a.technician_id = t.technician_id
+       WHERE DATE(a.start_time) = $1
+       ORDER BY a.start_time ASC`,
+      [date]
+    );
+
+    return res.json({
+      ok: true,
+      date,
+      appointments: result.rows
+    });
+  } catch (err) {
+    console.error('[appointments/by-date error]', err);
+    return res.status(500).json({ ok: false, error: 'server-error' });
+  }
+});
+
+// GET /api/appointments/:id - Get full appointment details
+app.get('/api/appointments/:id', async (req, res) => {
+  if (!pool) {
+    return res.status(503).json({ ok: false, error: 'db-not-configured' });
+  }
+
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(
+      `SELECT
+         a.appointment_id,
+         a.start_time,
+         a.end_time,
+         a.status,
+         c.customer_id,
+         c.first_name as customer_first_name,
+         c.last_name as customer_last_name,
+         c.phone as customer_phone,
+         c.email as customer_email,
+         s.service_id,
+         s.name as service_name,
+         s.description as service_description,
+         v.vehicle_id,
+         v.make,
+         v.model,
+         v.year,
+         v.color,
+         v.plate_number,
+         v.vin,
+         t.technician_id,
+         t.first_name as tech_first_name,
+         t.last_name as tech_last_name,
+         t.phone as tech_phone
+       FROM appointments a
+       INNER JOIN customers c ON a.customer_id = c.customer_id
+       INNER JOIN services s ON a.service_id = s.service_id
+       INNER JOIN vehicles v ON a.vehicle_id = v.vehicle_id
+       LEFT JOIN technicians t ON a.technician_id = t.technician_id
+       WHERE a.appointment_id = $1`,
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ ok: false, error: 'appointment-not-found' });
+    }
+
+    return res.json({
+      ok: true,
+      appointment: result.rows[0]
+    });
+  } catch (err) {
+    console.error('[appointments/get-by-id error]', err);
+    return res.status(500).json({ ok: false, error: 'server-error' });
+  }
+});
+
+// GET /api/appointments/:id/available-technicians - Get available technicians for reassignment
+app.get('/api/appointments/:id/available-technicians', async (req, res) => {
+  if (!pool) {
+    return res.status(503).json({ ok: false, error: 'db-not-configured' });
+  }
+
+  const { id } = req.params;
+
+  try {
+    // Get appointment details
+    const apptResult = await pool.query(
+      `SELECT service_id, start_time, end_time, technician_id
+       FROM appointments
+       WHERE appointment_id = $1`,
+      [id]
+    );
+
+    if (apptResult.rowCount === 0) {
+      return res.status(404).json({ ok: false, error: 'appointment-not-found' });
+    }
+
+    const { service_id, start_time, end_time, technician_id } = apptResult.rows[0];
+
+    // Find available technicians qualified for this service
+    const availableTechs = await pool.query(
+      `SELECT
+         t.technician_id,
+         t.first_name,
+         t.last_name,
+         t.position,
+         CASE WHEN t.technician_id = $4 THEN true ELSE false END as is_current
+       FROM technicians t
+       INNER JOIN technician_services ts ON t.technician_id = ts.technician_id
+       WHERE ts.service_id = $1
+       AND NOT EXISTS (
+         SELECT 1 FROM appointments a
+         WHERE a.technician_id = t.technician_id
+         AND a.appointment_id != $5
+         AND a.start_time < $2
+         AND a.end_time > $3
+       )
+       ORDER BY is_current DESC, t.last_name ASC, t.first_name ASC`,
+      [service_id, end_time, start_time, technician_id, id]
+    );
+
+    return res.json({
+      ok: true,
+      appointment_id: id,
+      current_technician_id: technician_id,
+      available_technicians: availableTechs.rows
+    });
+  } catch (err) {
+    console.error('[appointments/available-technicians error]', err);
+    return res.status(500).json({ ok: false, error: 'server-error' });
+  }
+});
+
+// PATCH /api/appointments/:id/reassign - Reassign technician
+app.patch('/api/appointments/:id/reassign', async (req, res) => {
+  if (!pool) {
+    return res.status(503).json({ ok: false, error: 'db-not-configured' });
+  }
+
+  const { id } = req.params;
+  const { technician_id } = req.body;
+
+  if (!technician_id) {
+    return res.status(400).json({ ok: false, error: 'missing-technician-id' });
+  }
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // Get appointment details
+    const apptResult = await client.query(
+      `SELECT service_id, start_time, end_time
+       FROM appointments
+       WHERE appointment_id = $1`,
+      [id]
+    );
+
+    if (apptResult.rowCount === 0) {
+      await client.query('ROLLBACK');
+      return res.status(404).json({ ok: false, error: 'appointment-not-found' });
+    }
+
+    const { service_id, start_time, end_time } = apptResult.rows[0];
+
+    // Verify technician is qualified
+    const qualifiedCheck = await client.query(
+      `SELECT 1 FROM technician_services
+       WHERE technician_id = $1 AND service_id = $2`,
+      [technician_id, service_id]
+    );
+
+    if (qualifiedCheck.rowCount === 0) {
+      await client.query('ROLLBACK');
+      return res.status(422).json({ ok: false, error: 'technician-not-qualified' });
+    }
+
+    // Verify technician is available
+    const conflictCheck = await client.query(
+      `SELECT 1 FROM appointments
+       WHERE technician_id = $1
+       AND appointment_id != $2
+       AND start_time < $3
+       AND end_time > $4`,
+      [technician_id, id, end_time, start_time]
+    );
+
+    if (conflictCheck.rowCount > 0) {
+      await client.query('ROLLBACK');
+      return res.status(409).json({ ok: false, error: 'technician-not-available' });
+    }
+
+    // Update appointment
+    const updateResult = await client.query(
+      `UPDATE appointments
+       SET technician_id = $1
+       WHERE appointment_id = $2
+       RETURNING appointment_id`,
+      [technician_id, id]
+    );
+
+    // Get technician name
+    const techResult = await client.query(
+      `SELECT first_name, last_name FROM technicians WHERE technician_id = $1`,
+      [technician_id]
+    );
+
+    await client.query('COMMIT');
+
+    return res.json({
+      ok: true,
+      appointment_id: updateResult.rows[0].appointment_id,
+      technician_id,
+      technician_name: `${techResult.rows[0].first_name} ${techResult.rows[0].last_name}`
+    });
+  } catch (err) {
+    await client.query('ROLLBACK');
+    console.error('[appointments/reassign error]', err);
+    return res.status(500).json({ ok: false, error: 'server-error' });
+  } finally {
+    client.release();
+  }
+});
 
 // 404
 app.use('/api', (_req, res) => res.status(404).json({ error: 'Not found' }));

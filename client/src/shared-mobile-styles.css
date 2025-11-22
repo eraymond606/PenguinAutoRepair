@@ -1,0 +1,347 @@
+/*
+  Shared Mobile Styles - Penguin Auto Repair
+  Import this in components for consistent styling
+*/
+
+/* ========== Mobile Frame ========== */
+.mobile-frame {
+  position: relative;
+  min-height: 100vh;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+/* ========== Bubbles Background ========== */
+.bubbles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: #2f86b6;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* Edge half-circles (clipped at sides) */
+.bubble.edge {
+  width: 54px;
+  height: 54px;
+  background: #1e6fa1;
+  opacity: 0.9;
+  top: 54%;
+  right: -18px;
+  transform: translateY(-50%);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.bubble.edge.edge-left {
+  right: auto;
+  left: -18px;
+  top: auto;
+  bottom: 8%;
+  background: #1e6fa1;
+  opacity: 0.9;
+}
+
+.bubble.big-top-left {
+  width: 54px;
+  height: 54px;
+  background: #1e6fa1;
+  opacity: 0.85;
+  top: 25px;
+  left: 70px;
+  z-index: 0;
+}
+
+/* Medium bubbles */
+.bubble.m {
+  width: 22px;
+  height: 22px;
+}
+
+.bubble.m.b1 {
+  top: 78px;
+  left: 8%;
+}
+
+.bubble.m.b2 {
+  top: 110px;
+  right: 12%;
+}
+
+.bubble.m.b3 {
+  top: 260px;
+  right: 8%;
+}
+
+/* Small bubbles */
+.bubble.s {
+  width: 12px;
+  height: 12px;
+  background: #4ea1cf;
+}
+
+.bubble.s.s1 {
+  top: 140px;
+  left: 22%;
+}
+
+.bubble.s.s2 {
+  top: 170px;
+  left: 34%;
+}
+
+.bubble.s.s3 {
+  top: 200px;
+  left: 16%;
+}
+
+.bubble.s.s4 {
+  top: 310px;
+  right: 18%;
+}
+
+/* ========== Back Button ========== */
+.back-link,
+.back-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: transparent;
+  border: none;
+  color: #0d5a8a;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 10;
+  padding: 8px;
+}
+
+.back-link:hover,
+.back-button:hover {
+  text-decoration: underline;
+}
+
+/* ========== Logo ========== */
+.app-logo,
+.login-logo,
+.signup-logo,
+.nv-logo,
+.sched-logo,
+.results-logo {
+  display: block;
+  width: 110px;
+  height: 110px;
+  margin: 28px auto 10px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+  position: relative;
+  z-index: 1;
+}
+
+/* ========== Titles ========== */
+.app-title,
+.login-title,
+.signup-title,
+.nv-title,
+.sched-title {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0d5a8a;
+  margin: 12px 0 20px;
+}
+
+/* ========== Forms ========== */
+.app-form,
+.login-form,
+.signup-form,
+.nv-form,
+.sched-form {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* ========== Inputs ========== */
+.app-input,
+.login-input,
+.signup-input,
+.nv-input {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #d6e3ee;
+  border-radius: 22px;
+  padding: 12px 16px;
+  font-size: 15px;
+  outline: none;
+  box-shadow: 0 4px 10px rgba(13, 79, 122, 0.12);
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.app-input:focus,
+.login-input:focus,
+.signup-input:focus,
+.nv-input:focus {
+  border-color: #0d5a8a;
+  box-shadow: 0 4px 12px rgba(13, 90, 138, 0.2);
+}
+
+.app-input.invalid,
+.signup-input.invalid {
+  border-color: #dc3545;
+}
+
+/* ========== Select Inputs ========== */
+.app-select,
+.sched-select {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #d6e3ee;
+  border-radius: 22px;
+  padding: 12px 16px;
+  font-size: 15px;
+  outline: none;
+  box-shadow: 0 4px 10px rgba(13, 79, 122, 0.12);
+  box-sizing: border-box;
+  cursor: pointer;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%230d5a8a" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
+}
+
+/* ========== Buttons ========== */
+.app-btn,
+.login-btn,
+.signup-btn,
+.nv-submit,
+.sched-submit,
+.confirm-btn {
+  width: 90%;
+  margin: 8px auto;
+  display: block;
+  border-radius: 28px;
+  padding: 12px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  border: none;
+}
+
+/* Primary Button (Blue) */
+.app-btn,
+.login-btn,
+.nv-submit,
+.sched-submit,
+.confirm-btn {
+  background: #0d5a8a;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(13, 90, 138, 0.25);
+}
+
+.app-btn:hover,
+.login-btn:hover,
+.nv-submit:hover,
+.sched-submit:hover,
+.confirm-btn:hover {
+  background: #094a72;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(13, 90, 138, 0.3);
+}
+
+.app-btn:active,
+.login-btn:active,
+.nv-submit:active,
+.sched-submit:active,
+.confirm-btn:active {
+  transform: translateY(0);
+}
+
+.app-btn:disabled,
+.login-btn:disabled,
+.nv-submit:disabled,
+.sched-submit:disabled,
+.confirm-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Secondary Button (White) */
+.signup-btn {
+  background: #ffffff;
+  color: #0d5a8a;
+  border: 2px solid #0d5a8a;
+  box-shadow: 0 6px 12px rgba(13, 79, 122, 0.10);
+}
+
+.signup-btn:hover {
+  background: #f0f8ff;
+  transform: translateY(-2px);
+}
+
+.signup-btn:active {
+  transform: translateY(0);
+}
+
+/* ========== Error Messages ========== */
+.field-pop {
+  color: #dc3545;
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.req-text {
+  font-size: 12px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* ========== Utility Classes ========== */
+.text-center {
+  text-align: center;
+}
+
+.mt-sm {
+  margin-top: 8px;
+}
+
+.mt-md {
+  margin-top: 16px;
+}
+
+.mt-lg {
+  margin-top: 24px;
+}
+
+.mb-sm {
+  margin-bottom: 8px;
+}
+
+.mb-md {
+  margin-bottom: 16px;
+}
+
+.mb-lg {
+  margin-bottom: 24px;
+}

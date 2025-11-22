@@ -1,0 +1,202 @@
+.appointment-detail-screen {
+  background: white;
+  min-height: 100vh;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.detail-header {
+  padding: 20px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #0d5a8a;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px;
+  order: 1;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+.detail-header .hamburger-menu {
+  order: 2;
+}
+
+.detail-content {
+  padding: 32px 24px;
+}
+
+.customer-name {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0d5a8a;
+  text-align: center;
+  margin: 0 0 32px 0;
+}
+
+.detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.detail-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0d5a8a;
+}
+
+.detail-value {
+  font-size: 18px;
+  font-weight: 400;
+  color: #333;
+}
+
+.technician-section {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 2px solid #0d5a8a;
+}
+
+.technician-header {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0d5a8a;
+  text-align: center;
+  margin: 0 0 16px 0;
+}
+
+.technician-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0d5a8a;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.reassign-button {
+  width: 100%;
+  background: #0d5a8a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  margin-top: 16px;
+}
+
+.reassign-button:hover {
+  background: #094a72;
+  transform: translateY(-2px);
+}
+
+.reassign-button:active {
+  transform: translateY(0);
+}
+
+.reassign-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.technician-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loading-techs,
+.no-techs {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 15px;
+}
+
+.tech-option {
+  width: 100%;
+  background: white;
+  border: 2px solid #0d5a8a;
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.tech-option:hover {
+  background: #f0f8ff;
+  transform: translateX(4px);
+}
+
+.tech-option:active {
+  transform: translateX(2px);
+}
+
+.tech-option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.tech-option.current {
+  background: #e6f3ff;
+  border-color: #0d5a8a;
+  border-width: 3px;
+}
+
+.tech-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0d5a8a;
+}
+
+.current-badge {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  font-style: italic;
+}
+
+.loading-message {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 18px;
+  color: #666;
+}

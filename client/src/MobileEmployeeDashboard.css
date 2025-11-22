@@ -1,0 +1,59 @@
+@import './shared-mobile-styles.css';
+
+.employee-dashboard-screen {
+  position: relative;
+  background: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.employee-dashboard-logo {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+.employee-dashboard-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0d5a8a;
+  margin: 0 0 16px 0;
+}
+
+.employee-dashboard-subtitle {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 48px 0;
+  max-width: 320px;
+}
+
+.employee-logout-btn {
+  width: 200px;
+  background: #0d5a8a;
+  color: #fff;
+  border: none;
+  border-radius: 28px;
+  padding: 12px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(13, 90, 138, 0.25);
+}
+
+.employee-logout-btn:hover {
+  background: #094a72;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(13, 90, 138, 0.3);
+}
+
+.employee-logout-btn:active {
+  transform: translateY(0);
+}
