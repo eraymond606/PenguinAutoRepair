@@ -1,0 +1,75 @@
+.site-header { 
+  background:#0b4e88; 
+  color:#fff; 
+  width:100%; 
+}
+
+.topbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+}
+
+/* Circle just bigger than the penguin, perfectly centered */
+.logo-badge {
+  width: 40px;              /* circle size */
+  height: 35px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;            /* easy centering */
+  place-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+  /* optional: a soft ring that looks nice on the blue bar */
+  /* border: 2px solid rgba(255,255,255,.65); */
+  transition: transform .2s ease;
+}
+
+.logo-badge:hover { transform: scale(1.05); }
+
+/* Make sure the penguin is smaller than the circle and centered */
+.logo-badge img {
+  width: 90px;              /* penguin size inside the 44px circle */
+  height: 90px;
+  object-fit: contain;
+}
+
+.brand-name { 
+  font-weight: 700; 
+}
+
+.contact { 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  flex-wrap: wrap; 
+}
+
+.dot { opacity:.8 }
+
+.pill {
+  border: 0;
+  background: #fff;
+  color: #0b4e88;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.pill:hover { 
+  filter: brightness(0.96); 
+}
+
+@media (max-width: 720px) {
+  .brand-name { display:none; } /* keeps it clean on mobile */
+}

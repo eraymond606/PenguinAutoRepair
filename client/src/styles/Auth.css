@@ -1,0 +1,162 @@
+
+/* ============ Shared Auth / Schedule Layout ============ */
+
+.auth-page,
+.schedule-page,
+.confirm-page {
+  min-height: calc(100vh - 140px); /* header + footer space */
+  background: #f7f9fc;
+  /* Hero background (set at runtime via --auth-hero to reference public/images/hero.jpg) */
+  background-image: var(--auth-hero, none);
+  background-size: cover;
+  background-position: center top;
+  display: flex;
+  flex-direction: column;
+}
+
+/* white panel like the Figma cards */
+.auth-page main,
+.schedule-page main,
+.confirm-page main {
+  max-width: 520px;
+  margin: 140px auto 80px;
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 14px;
+  padding: 32px 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+/* title in the panel */
+.auth-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #004c7f;
+  margin-bottom: 24px;
+}
+
+/* helper text */
+.auth-sub {
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 28px;
+}
+
+/* ============ Form controls ============ */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: left;
+}
+
+.auth-form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #24415c;
+}
+
+.auth-form input,
+.auth-form select {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #c7d2e2;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  border-color: #0b71c9;
+  box-shadow: 0 0 0 2px rgba(11, 113, 201, 0.2);
+}
+
+/* error text placeholder (if you add validation later) */
+.auth-error {
+  color: #c53030;
+  font-size: 0.85rem;
+  margin-top: -8px;
+}
+
+/* ============ Buttons ============ */
+
+.auth-actions {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-primary {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #0066a6;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.btn-primary:hover {
+  background: #00548a;
+  transform: translateY(-1px);
+  box-shadow: 0 9px 22px rgba(0, 0, 0, 0.3);
+}
+
+.btn-text {
+  background: transparent;
+  border: none;
+  color: #00548a;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* small link under password field */
+.forgot-link {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+/* ============ Confirmation page ============ */
+
+.confirm-message {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #004c7f;
+}
+
+.confirm-email {
+  font-weight: 600;
+}
+
+/* ============ Responsive tweaks ============ */
+
+@media (max-width: 768px) {
+  .auth-page main,
+  .schedule-page main,
+  .confirm-page main {
+    margin: 120px 16px 60px;
+    padding: 24px 20px;
+  }
+
+  .auth-title {
+    font-size: 1.6rem;
+  }
+}
+@media (max-width: 480px) {
+  .auth-page main,
+  .schedule-page main,
+  .confirm-page main {
+    margin: 100px 12px 40px;
+    padding: 20px 16px;
+  }
+}

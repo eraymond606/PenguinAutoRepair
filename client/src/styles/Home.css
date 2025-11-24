@@ -1,0 +1,199 @@
+/* ================= Theme tokens ================= */
+:root {
+  --blue: #0f4c81;
+  --blue-600: #0d3f6b;
+  --muted: #4f5d6a;
+  --shadow: 0 10px 24px rgba(15, 76, 129, .22);
+}
+
+/* ================= Basics ================= */
+* { box-sizing: border-box; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+body { margin: 0; color: #213547; }
+.muted { color: var(--muted); line-height: 1.6; }
+
+/* ================= Topbar ================= */
+.topbar {
+  margin: 0;
+  padding: 12px 18px;
+  background: var(--blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.logo { width: 36px; height: 36px; margin-right: 8px; }
+.logo.sm { width: 28px; height: 28px; }
+.topbar__left { display: flex; align-items: center; }
+.brand { font-weight: 700; }
+.topbar__right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.dot { opacity: .7; }
+.icon { margin-right: 6px; }
+
+/* ================= Hero ================= */
+.hero {
+  position: relative;
+  height: 360px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #e9f2f9;
+  margin: 0;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* ================= Buttons ================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #fff;
+  color: var(--blue);
+  padding: 10px 16px;
+  transition: transform .1s ease, box-shadow .2s ease, filter .2s ease;
+}
+.hero .btn {
+  position: absolute;
+  left: 50%;
+  bottom: -24px;
+  transform: translateX(-50%);
+  background: #165e9a;
+  color: #fff;
+  padding: 14px 28px;
+  font-size: 1rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,.2);
+  z-index: 10;
+}
+.hero .btn:hover {
+  transform: translateX(-50%) translateY(-2px);
+  filter: brightness(1.05);
+}
+.btn--sm { padding: 8px 14px; }
+.btn--lg { padding: 14px 26px; font-size: 1.05rem; }
+.btn--shadow { box-shadow: var(--shadow); }
+.btn:hover { transform: translateY(-1px); filter: brightness(.98); }
+
+/* ================= Intro ================= */
+.intro {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 22px;
+  align-items: start;
+  margin: 64px 16px 6px;
+}
+.badge { width: 140px; aspect-ratio: 1/1; object-fit: contain; }
+.intro h1 { margin: 0 0 8px; }
+.intro p { max-width: 900px; }
+
+/* ================= Responsive tweaks ================= */
+@media (max-width: 600px) {
+  .hero { height: 300px; }
+  .hero .btn { padding: 12px 20px; bottom: -18px; }
+}
+
+/* ================= Services Carousel ================= */
+.services-carousel {
+  margin: 18px auto 34px;
+  position: relative;
+  max-width: 1050px;
+  overflow: hidden;            /* no vertical scrollbar */
+}
+
+/* Prevent global horizontal scroll when slides peek */
+html, body { overflow-x: hidden; }
+
+.services-carousel .section-title {
+  text-align: center;
+  color: var(--blue-600);
+  margin: 14px 0 18px;
+}
+
+.slide-pad { padding: 0 4px; }
+
+.service-card {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(16,24,40,.15);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.service-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+.service-card .media::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(0,0,0,.45), rgba(0,0,0,0));
+  pointer-events: none;
+}
+.service-card .label {
+  position: absolute; left: 16px; bottom: 14px;
+  color: #fff; font-weight: 800; font-size: 1.2rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,.18), 0 8px 20px rgba(0,0,0,.32);
+  pointer-events: none;
+}
+
+
+.slick-slide > div { display: flex; justify-content: center; }
+.slick-slide .service-card { transform: scale(.9) translateY(4px); opacity: .75; }
+.slick-center .service-card { transform: scale(1.05) translateY(0); opacity: 1; z-index: 2; }
+
+.services-carousel .slick-track {
+  display: flex !important;
+  align-items: center;
+}
+
+/* Gutter padding ensures arrows never overlap cards */
+.services-carousel .slick-list {
+  overflow: hidden !important;
+  margin: 0 auto;
+  padding-left: 72px !important;
+  padding-right: 72px !important;
+  box-sizing: content-box;
+}
+
+/* Arrows inside gutters */
+.slick-arrow-btn {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 42px; height: 42px;
+  border-radius: 50%; border: 0;
+  cursor: pointer;
+  background: #e9f0f7; color: #1d3b56;
+  font-size: 26px; line-height: 42px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  z-index: 10;
+}
+.slick-arrow-btn.prev { left: 18px; }
+.slick-arrow-btn.next { right: 18px; }
+.slick-arrow-btn:hover { filter: brightness(.97); }
+
+.slick-dots { display: none !important; }
+
+/* ================= Responsive Carousel ================= */
+@media (max-width: 640px) {
+  .service-card { width: 160px; height: 220px; }
+  .service-card img { height: 180px; }
+  .services-carousel .slick-list {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+  .slick-arrow-btn { width: 32px; height: 32px; font-size: 20px; }
+  .slick-arrow-btn.prev { left: 10px; }
+  .slick-arrow-btn.next { right: 10px; }
+}
+
