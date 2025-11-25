@@ -1,19 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
+import AuthLayout from "../components/layout/AuthLayout";
 
 export default function ResetPassword() {
+  const navigate = useNavigate();
   const [pass, setPass] = useState("");
   const [confirm, setConfirm] = useState("");
 
   const submit = (e) => {
     e.preventDefault();
     console.log("RESET PASSWORD", pass, confirm);
+    // In the mock flow, pretend the reset succeeded and send the user to login
+    navigate("/login");
   };
 
   return (
-    <div className="auth-page">
-      <h1 className="auth-title">Reset Password</h1>
-
+    <AuthLayout title="Reset Password">
       <form className="auth-form" onSubmit={submit}>
         <input
           type="password"
@@ -33,7 +36,7 @@ export default function ResetPassword() {
           Submit
         </button>
       </form>
-    </div>
+    </AuthLayout>
   );
 }
 // client/src/pages/ResetPassword.jsx

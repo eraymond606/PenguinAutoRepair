@@ -14,17 +14,69 @@
   flex-direction: column;
 }
 
+/* allow absolute positioning of title/dots */
+.auth-page {
+  position: relative;
+}
+
 /* white panel like the Figma cards */
 .auth-page main,
 .schedule-page main,
 .confirm-page main {
-  max-width: 520px;
+  max-width: 720px;
   margin: 140px auto 80px;
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, 0.98);
   border-radius: 14px;
-  padding: 32px 40px;
+  padding: 28px 36px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   text-align: center;
+}
+
+/* rounded title pill that overlaps the hero */
+.auth-title-pill {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 76px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px 34px;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+  z-index: 3;
+}
+
+.auth-title-pill .auth-title {
+  margin: 0;
+  font-size: 2rem;
+  color: #064a63;
+}
+
+/* decorative dot overlay (subtle, repeats) */
+.auth-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 220px;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(6,74,99,0.85) 8px, transparent 9px),
+    radial-gradient(circle, rgba(77,129,148,0.6) 5px, transparent 6px);
+  background-size: 120px 120px, 60px 60px;
+  background-position: 20px 40px, 80px 140px;
+  opacity: 0.95;
+}
+
+/* Disable polka dots globally — visual template change per user preference */
+.auth-dots { display: none !important; }
+/* Enable polka dots for Vehicles page only */
+.auth-page:has(.vehicle-page-content) .auth-dots { display: block !important; }
+
+/* ensure content sits above dots */
+.auth-page main {
+  position: relative;
+  z-index: 2;
 }
 
 /* title in the panel */
@@ -73,6 +125,30 @@
   border-color: #0b71c9;
   box-shadow: 0 0 0 2px rgba(11, 113, 201, 0.2);
 }
+.auth-form input,
+.auth-form select {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid #d6dbe2;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  outline: none;
+  background: #f4f6f8;
+  box-shadow: inset 0 3px 8px rgba(6, 74, 99, 0.03);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease, transform 0.08s ease;
+}
+
+.auth-form input::placeholder,
+.auth-form select option[disabled] {
+  color: #9aa6b2;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  border-color: #0b71c9;
+  box-shadow: 0 6px 18px rgba(11, 113, 201, 0.12), inset 0 3px 6px rgba(0,0,0,0.04);
+  transform: translateY(-1px);
+}
 
 /* error text placeholder (if you add validation later) */
 .auth-error {
@@ -117,6 +193,52 @@
   cursor: pointer;
   text-decoration: underline;
 }
+.auth-actions {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+/* primary pill button used across auth pages */
+.auth-btn,
+.btn-primary {
+  display: inline-block;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-size: 1rem;
+  font-weight: 700;
+  background: #084f69;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(6, 74, 99, 0.18);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  text-align: center;
+}
+
+.auth-btn:hover,
+.btn-primary:hover {
+  background: #063d53;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(6, 74, 99, 0.22);
+}
+
+.btn-text {
+  background: transparent;
+  border: none;
+  color: #084f69;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ensure single auth button centers when used alone */
+.auth-form > .auth-btn,
+.auth-form > button.auth-btn {
+  margin: 18px auto 0;
+}
 
 /* small link under password field */
 .forgot-link {
@@ -144,8 +266,8 @@
   .auth-page main,
   .schedule-page main,
   .confirm-page main {
-    margin: 120px 16px 60px;
-    padding: 24px 20px;
+    margin: 110px 14px 60px;
+    padding: 20px 16px;
   }
 
   .auth-title {
@@ -156,7 +278,269 @@
   .auth-page main,
   .schedule-page main,
   .confirm-page main {
-    margin: 100px 12px 40px;
-    padding: 20px 16px;
+    margin: 90px 10px 40px;
+    padding: 16px 12px;
+  }
+
+  .auth-title-pill {
+    top: 56px;
+    padding: 14px 18px;
+  }
+
+  .auth-title-pill .auth-title {
+    font-size: 1.25rem;
+  }
+
+  .auth-page main,
+  .schedule-page main,
+  .confirm-page main {
+    max-width: 96%;
   }
 }
+
+/* Schedule specific styles */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 320px;
+  gap: 24px;
+  align-items: start;
+}
+.code-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  border: 1px solid #d6dbe2;
+  background: #f4f6f8;
+  text-align: center;
+  font-size: 1.2rem;
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.04);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.times-col { text-align:center }
+.service-select { margin-bottom:12px }
+.times-list h3 { margin-top:6px }
+.time-grid { display:flex; flex-wrap:wrap; gap:10px; justify-content:center }
+.time-slot { padding:10px 18px; border-radius:20px; border:1px solid #d0d7df; background:white; box-shadow:0 6px 12px rgba(0,0,0,0.08); cursor:pointer }
+.time-slot.selected { background:#084f69; color:white; }
+.time-slot { padding:10px 18px; border-radius:999px; border:1px solid #d0d7df; background:#ffffff; box-shadow:0 6px 12px rgba(6,74,99,0.06); cursor:pointer }
+.time-slot.selected { background:#084f69; color:white; box-shadow:0 10px 22px rgba(6,74,99,0.16); }
+
+.confirm-col { text-align:center }
+.confirm-box { background: rgba(255,255,255,0.9); padding:16px; border-radius:12px; margin-bottom:12px }
+
+@media (max-width: 900px) {
+  .schedule-grid { grid-template-columns: 1fr; }
+  .confirm-col { order: 3 }
+}
+
+/* ============ Vehicles list ============ */
+.vehicle-list {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+}
+.vehicle-card {
+  min-width: 160px;
+  max-width: 220px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1px solid #e1e7ee;
+  box-shadow: 0 6px 14px rgba(6,74,99,0.04);
+  text-align: left;
+}
+.vehicle-card.selected {
+  border-color: #084f69;
+  box-shadow: 0 14px 30px rgba(6,74,99,0.12);
+}
+.vehicle-card.add-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #084f69;
+}
+.vehicle-line { font-weight: 700; color: #07394a }
+.vehicle-sub { font-size: 0.85rem; color: #556b78; margin-top: 6px }
+
+/* ============ Vehicles page redesign ============ */
+.vehicle-page-content {
+  position: relative;
+  z-index: 2;
+}
+.vehicle-page-hero {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 32px;
+}
+.vehicle-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #023746;
+  background: rgba(255,255,255,0.95);
+  border-radius: 16px;
+  display: inline-block;
+  padding: 16px 54px;
+  box-shadow: 0 8px 24px rgba(6,74,99,0.12);
+}
+.vehicle-form-section {
+  margin: 0 auto;
+  max-width: 560px;
+  background: rgba(255,255,255,0.98);
+  border-radius: 18px;
+  box-shadow: 0 12px 36px rgba(6,74,99,0.12);
+  padding: 42px 38px 46px 38px;
+  text-align: center;
+  position: relative;
+}
+.vehicle-form-heading {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #023746;
+  margin-bottom: 28px;
+}
+.vehicle-form-new {
+  color: #023746;
+  font-weight: 800;
+}
+.vehicle-form {
+  margin-top: 12px;
+}
+.vehicle-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 24px;
+  margin-bottom: 32px;
+}
+.vehicle-form-grid input {
+  border-radius: 12px;
+  border: 1px solid #cdd5de;
+  padding: 16px 20px;
+  font-size: 1.05rem;
+  background: #eef2f6;
+  box-shadow: inset 0 2px 6px rgba(6, 74, 99, 0.04);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  color: #333;
+}
+.vehicle-form-grid input::placeholder {
+  color: #889199;
+}
+.vehicle-form-grid input:focus {
+  border-color: #0b71c9;
+  box-shadow: 0 0 0 3px rgba(11, 113, 201, 0.12), inset 0 2px 6px rgba(6, 74, 99, 0.04);
+  background: #f8fafb;
+}
+.vehicle-form-submit {
+  display: block;
+  margin: 0 auto;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 62px;
+  font-size: 1.12rem;
+  font-weight: 700;
+  background: #084f69;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(6, 74, 99, 0.20);
+  transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
+}
+.vehicle-form-submit:hover {
+  background: #063d53;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(6, 74, 99, 0.26);
+}
+
+.vehicle-schedule-btn {
+  display: inline-block;
+  border: 2px solid #084f69;
+  background: transparent;
+  color: #084f69;
+  border-radius: 999px;
+  padding: 14px 48px;
+  font-size: 1.08rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.14s ease;
+  box-shadow: 0 6px 18px rgba(6, 74, 99, 0.08);
+}
+.vehicle-schedule-btn:hover {
+  background: #084f69;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(6, 74, 99, 0.18);
+}
+
+/* ============ Calendar + schedule polish ============ */
+.month-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  justify-content: center;
+}
+.month-controls > button {
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 8px 10px;
+  color: #064a63;
+}
+.month-tabs {
+  display: flex;
+  background: rgba(255,255,255,0.9);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(6,74,99,0.06);
+}
+.month-tab {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #084f69;
+  font-weight: 700;
+}
+.month-tab.current {
+  background: #e9f4fb;
+  color: #023746;
+}
+
+.calendar { width: 100%; border-collapse: collapse; }
+.calendar thead th { font-weight: 700; color: #24415c; font-size: 0.95rem; padding-bottom: 8px }
+.calendar td { padding: 8px; text-align: center }
+
+.day-btn {
+  background: #ffffff;
+  border: 1px solid #e0e8ef;
+  padding: 10px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  min-width: 36px;
+  font-weight: 700;
+}
+.selected .day-btn {
+  background: #084f69;
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(6,74,99,0.14);
+}
+
+.time-grid { display:flex; flex-wrap:wrap; gap:12px; justify-content:center }
+.time-slot { padding:12px 22px; border-radius:999px; border:1px solid #d0d7df; background:#ffffff; box-shadow:0 8px 18px rgba(6,74,99,0.06); cursor:pointer; font-weight:700 }
+.time-slot.selected { background:#084f69; color:white; box-shadow:0 14px 28px rgba(6,74,99,0.18) }
+
+.confirm-box { background: rgba(255,255,255,0.98); padding:22px 18px; border-radius:12px; margin-bottom:18px; min-width:220px }
+.confirm-box .service { font-size:1.6rem; font-weight:800; color:#023746; margin-bottom:8px }
+.confirm-box .date { font-size:1.1rem; font-weight:700; margin-bottom:6px }
+.confirm-box .time { font-size:1.3rem; font-weight:800; color:#084f69 }
+
+/* make confirm button match design */
+.btn-primary { padding: 12px 28px; border-radius: 999px }
+

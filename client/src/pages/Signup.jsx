@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
+import * as api from "../lib/api";
+import AuthLayout from "../components/layout/AuthLayout";
 
 export default function Signup() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     first: "",
     last: "",
@@ -11,18 +15,28 @@ export default function Signup() {
     confirm: "",
   });
 
-  const handle = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handle = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    console.log("SIGNUP", form);
+    try {
+      // basic client-side validation
+      if (!form.email || !form.password) {
+        alert("Please provide email and password.");
+        return;
+      }
+
+      await api.signup(form);
+      // after signup, send user to login page
+      navigate("/login");
+    } catch (err) {
+      console.error("Signup failed", err);
+      alert("Signup failed. Please try again.");
+    }
   };
 
   return (
-    <div className="auth-page">
-      <h1 className="auth-title">Create Account</h1>
-
+    <AuthLayout title="Create Account">
       <form className="auth-form" onSubmit={submit}>
         <input
           name="first"
@@ -68,7 +82,7 @@ export default function Signup() {
           Submit
         </button>
       </form>
-    </div>
+    </AuthLayout>
   );
 }
 // client/src/pages/Signup.jsx

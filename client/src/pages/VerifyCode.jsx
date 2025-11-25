@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
+import AuthLayout from "../components/layout/AuthLayout";
 
 export default function VerifyCode() {
+  const navigate = useNavigate();
   const [codes, setCodes] = useState(["", "", "", ""]);
 
   const update = (i, v) => {
@@ -13,13 +16,12 @@ export default function VerifyCode() {
   const submit = (e) => {
     e.preventDefault();
     console.log("VERIFY CODE", codes.join(""));
-    window.location.href = "/reset-password";
+    // For the mock flow, navigate within the SPA to the reset password page
+    navigate("/reset-password");
   };
 
   return (
-    <div className="auth-page">
-      <h1 className="auth-title">Verify Email</h1>
-
+    <AuthLayout title="Verify Email">
       <form className="auth-form" onSubmit={submit}>
         <div className="code-row">
           {codes.map((c, i) => (
@@ -37,7 +39,7 @@ export default function VerifyCode() {
           Submit
         </button>
       </form>
-    </div>
+    </AuthLayout>
   );
 }
 // client/src/pages/VerifyCode.jsx

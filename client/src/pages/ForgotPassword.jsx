@@ -1,19 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
+import AuthLayout from "../components/layout/AuthLayout";
 
 export default function ForgotPassword() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
 
   const submit = (e) => {
     e.preventDefault();
     console.log("FORGOT PASSWORD", email);
-    window.location.href = "/verify-code";
+    // In a real app we'd send the email to the server. For the mock flow,
+    // navigate to the verify code screen inside the SPA.
+    navigate("/verify-code");
   };
 
   return (
-    <div className="auth-page">
-      <h1 className="auth-title">Forgot Password</h1>
-
+    <AuthLayout title="Forgot Password">
       <form className="auth-form" onSubmit={submit}>
         <input
           type="email"
@@ -26,7 +29,7 @@ export default function ForgotPassword() {
           Submit
         </button>
       </form>
-    </div>
+    </AuthLayout>
   );
 }
 // client/src/pages/ForgotPassword.jsx
