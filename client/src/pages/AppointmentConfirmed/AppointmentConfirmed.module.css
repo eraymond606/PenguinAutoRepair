@@ -1,0 +1,44 @@
+/* AppointmentConfirmed page styles */
+
+.details {
+  text-align: left;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.detailRow {
+  margin-bottom: 12px;
+}
+
+.detailRow strong {
+  font-weight: 700;
+}
+
+.detailRow span {
+  margin-left: 8px;
+}
+
+.vehicleInfo {
+  margin-top: 6px;
+}
+
+.emailNote {
+  margin-top: 16px;
+}
+
+.homeBtn {
+  background: #0b4e88;
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-top: 24px;
+}
+
+.homeBtn:hover {
+  background: #094270;
+}

@@ -1,0 +1,115 @@
+/* ServicesCarousel styles - matching snapshot Home.css carousel styles */
+
+/* Global carousel styles (component uses className="services-carousel") */
+:global(.services-carousel) {
+  margin: 18px auto 34px;
+  position: relative;
+  max-width: 1050px;
+  overflow: hidden;
+}
+
+:global(.services-carousel .section-title) {
+  text-align: center;
+  color: #0d3f6b;
+  margin: 14px 0 18px;
+}
+
+:global(.slide-pad) {
+  padding: 0 4px;
+}
+
+/* Slick slide animations */
+:global(.slick-slide > div) {
+  display: flex;
+  justify-content: center;
+}
+
+:global(.slick-slide .service-card) {
+  transform: scale(0.9) translateY(4px);
+  opacity: 0.75;
+}
+
+:global(.slick-center .service-card) {
+  transform: scale(1.05) translateY(0);
+  opacity: 1;
+  z-index: 2;
+}
+
+:global(.services-carousel .slick-track) {
+  display: flex !important;
+  align-items: center;
+}
+
+/* Gutter padding ensures arrows never overlap cards */
+:global(.services-carousel .slick-list) {
+  overflow: hidden !important;
+  margin: 0 auto;
+  padding-left: 72px !important;
+  padding-right: 72px !important;
+  box-sizing: content-box;
+}
+
+/* Arrows inside gutters */
+:global(.slick-arrow-btn) {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  background: #e9f0f7;
+  color: #1d3b56;
+  font-size: 26px;
+  line-height: 42px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+}
+
+:global(.slick-arrow-btn.prev) {
+  left: 18px;
+}
+
+:global(.slick-arrow-btn.next) {
+  right: 18px;
+}
+
+:global(.slick-arrow-btn:hover) {
+  filter: brightness(0.97);
+}
+
+:global(.slick-dots) {
+  display: none !important;
+}
+
+/* Responsive Carousel */
+@media (max-width: 640px) {
+  :global(.service-card) {
+    width: 160px;
+    height: 220px;
+  }
+  
+  :global(.service-card img) {
+    height: 180px;
+  }
+  
+  :global(.services-carousel .slick-list) {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+  
+  :global(.slick-arrow-btn) {
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+  }
+  
+  :global(.slick-arrow-btn.prev) {
+    left: 10px;
+  }
+  
+  :global(.slick-arrow-btn.next) {
+    right: 10px;
+  }
+}

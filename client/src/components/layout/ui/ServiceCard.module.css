@@ -1,0 +1,41 @@
+/* ServiceCard styles - matching snapshot Home.css */
+
+:global(.service-card) {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.15);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+:global(.service-card img) {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+:global(.service-card .media::after) {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 55%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+:global(.service-card .label) {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.18), 0 8px 20px rgba(0, 0, 0, 0.32);
+  pointer-events: none;
+}

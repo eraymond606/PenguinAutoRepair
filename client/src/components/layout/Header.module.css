@@ -1,0 +1,102 @@
+/* Header styles */
+
+.siteHeader { 
+  background: #0b4e88; 
+  color: #fff; 
+  width: 100%; 
+}
+
+.topbar {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.logoBadge {
+  width: 40px;
+  height: 35px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  place-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,.15);
+  transition: transform .2s ease;
+  cursor: pointer;
+}
+
+.logoBadge:hover { 
+  transform: scale(1.05); 
+}
+
+.logoBadge img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.brandName { 
+  font-weight: 700; 
+}
+
+.homeButton {
+  background: #fff;
+  color: #0b4e88;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.homeButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.contact { 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+  flex-wrap: wrap; 
+}
+
+.dot { 
+  opacity: .8; 
+}
+
+.pill {
+  border: 0;
+  background: #fff;
+  color: #0b4e88;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.pill:hover { 
+  filter: brightness(0.96); 
+}
+
+@media (max-width: 720px) {
+  .brandName { 
+    display: none; 
+  }
+  .homeButton { 
+    font-size: 12px; 
+    padding: 4px 10px; 
+  }
+}
