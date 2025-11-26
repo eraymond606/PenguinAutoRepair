@@ -195,11 +195,15 @@ export default function Schedule() {
         </div>
 
         <div className="confirm-col">
-          <h3>Confirm Appointment</h3>
+          <h3>Confirm<br/>Appointment</h3>
           <div className="confirm-box">
-            <div><strong>{service || "—"}</strong></div>
-            <div>{selectedDate ? selectedDate.toLocaleDateString() : "—"}</div>
-            <div>{selectedTime || "—"}</div>
+            <div><strong>{service || "Oil Change"}</strong></div>
+            <div style={{ fontSize: '1.4rem', fontWeight: 700, color: '#2a3f52', marginBottom: '4px' }}>
+              {selectedDate ? selectedDate.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }) : "9/18/25"}
+            </div>
+            <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#023746' }}>
+              {selectedTime || "9:30 AM"}
+            </div>
           </div>
           <button className="btn-primary" onClick={confirm} disabled={confirming}>{confirming ? "Confirming…" : "Confirm"}</button>
         </div>

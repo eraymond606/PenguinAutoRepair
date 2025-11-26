@@ -27,11 +27,13 @@ export default function Login() {
   };
 
   return (
-    <div
-      className="auth-page"
-      style={{ ['--auth-hero']: `url('/images/hero.jpg')` }}
-    >
-      <main>
+    <div className="auth-page">
+      <section
+        className="hero"
+        style={{ backgroundImage: `url('/images/hero.jpg')` }}
+      />
+
+      <main className="auth-main">
         <h1 className="auth-title">Sign In</h1>
 
         <form className="auth-form" onSubmit={submit}>

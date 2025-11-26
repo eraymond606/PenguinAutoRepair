@@ -17,7 +17,8 @@
 .brand { 
   display: flex; 
   align-items: center; 
-  gap: 10px; 
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 /* Circle just bigger than the penguin, perfectly centered */
@@ -47,6 +48,23 @@
   font-weight: 700; 
 }
 
+.home-button {
+  background: #fff;
+  color: #0b4e88;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.home-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
 .contact { 
   display: flex; 
   align-items: center; 
@@ -72,4 +90,5 @@
 
 @media (max-width: 720px) {
   .brand-name { display:none; } /* keeps it clean on mobile */
+  .btn-home { font-size: 12px; padding: 4px 10px; } /* smaller on mobile */
 }
