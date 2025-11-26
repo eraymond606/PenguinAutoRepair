@@ -9,39 +9,41 @@ export default function Home() {
   const heroImage = "/images/hero.jpg";
 
   return (
-    <>
-      {/* Hero section with background + button */}
-      <section
-        className="hero"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      >
-        <button
-          className="btn btn--lg btn--shadow"
-          onClick={() => navigate("/login")}
+    <div className="auth-page">
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        {/* Hero section with background + button */}
+        <section
+          className="hero"
+          style={{ backgroundImage: `url(${heroImage})` }}
         >
-          Schedule Service
-        </button>
-      </section>
+          <button
+            className="btn btn--lg btn--shadow"
+            onClick={() => navigate("/login")}
+          >
+            Schedule Service
+          </button>
+        </section>
 
-      {/* Intro section */}
-      <section className="intro">
-        <img className="badge" src="/logo.png" alt="Penguin" />
-        <div>
-          <h1>Penguin Auto Repair Shop</h1>
-          <p className="muted">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur.
-          </p>
-        </div>
-      </section>
+        {/* Intro section */}
+        <section className="intro">
+          <img className="badge" src="/logo.png" alt="Penguin" />
+          <div>
+            <h1>Penguin Auto Repair Shop</h1>
+            <p className="muted">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+              ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+              pariatur.
+            </p>
+          </div>
+        </section>
 
-      {/* Carousel */}
-      <ServicesCarousel />
-    </>
+        {/* Carousel */}
+        <ServicesCarousel />
+      </div>
+    </div>
   );
 }
 // client/src/pages/Home.jsx
