@@ -32,6 +32,126 @@
   text-align: center;
 }
 
+.greeting {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #005a8d;
+  margin: 0 0 12px 0;
+}
+
+.manageBtn {
+  display: block;
+  margin: 0 auto 16px auto;
+  background: transparent;
+  border: 1px solid #005a8d;
+  color: #005a8d;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.manageBtn:hover {
+  background: #005a8d;
+  color: white;
+}
+
+.subText {
+  text-align: center;
+  font-size: 16px;
+  color: #005a8d;
+  margin: 0 0 32px 0;
+}
+
+.vehicleGrid {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.vehicleCard {
+  position: relative;
+  min-width: 180px;
+  min-height: 120px;
+  background: #ffffff;
+  border: 2px solid #d0d7e2;
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.vehicleCard:hover {
+  border-color: #005a8d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 90, 141, 0.15);
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: #d9534f;
+  color: white;
+  border: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteBtn:hover {
+  background: #c9302c;
+  transform: scale(1.1);
+}
+
+.vehicleInfo {
+  font-size: 15px;
+  color: #1a1a1a;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.addCard {
+  background: #ffffff;
+}
+
+.plusIcon {
+  font-size: 48px;
+  color: #005a8d;
+  font-weight: 300;
+}
+
+.backButton {
+  background: transparent;
+  border: none;
+  color: #005a8d;
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 24px;
+  padding: 8px;
+  text-align: left;
+}
+
+.backButton:hover {
+  text-decoration: underline;
+}
+
 .formHeading {
   text-align: center;
   font-size: 28px;

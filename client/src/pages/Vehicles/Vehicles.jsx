@@ -8,6 +8,9 @@ export default function Vehicles() {
   const navigate = useNavigate();
   const [vehicles, setVehicles] = useState([]);
   const [form, setForm] = useState({ make: "", color: "", model: "", vin: "", year: "", plate: "" });
+  const [showForm, setShowForm] = useState(false);
+  const [manageMode, setManageMode] = useState(false);
+  const [userName, setUserName] = useState("Jane");
 
   useEffect(() => {
     const raw = sessionStorage.getItem(STORAGE_KEY);
@@ -16,6 +19,18 @@ export default function Vehicles() {
         setVehicles(JSON.parse(raw));
       } catch (e) {
         console.error("Failed to parse vehicles from storage", e);
+      }
+    }
+
+    const userRaw = sessionStorage.getItem("user");
+    if (userRaw) {
+      try {
+        const user = JSON.parse(userRaw);
+        if (user.firstName) {
+          setUserName(user.firstName);
+        }
+      } catch (e) {
+        console.error("Failed to parse user from storage", e);
       }
     }
   }, []);
@@ -33,6 +48,13 @@ export default function Vehicles() {
     setVehicles(next);
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     setForm({ make: "", color: "", model: "", vin: "", year: "", plate: "" });
+    setShowForm(false);
+  };
+
+  const handleDelete = (index) => {
+    const updated = vehicles.filter((v, i) => i !== index);
+    setVehicles(updated);
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
   };
 
   return (
@@ -41,9 +63,60 @@ export default function Vehicles() {
       <div className={styles.container}>
         <h1 className={styles.heroTitle}>Vehicles</h1>
         
-        <h2 className={styles.formHeading}>
-          Add a <span className={styles.highlight}>New Vehicle</span>
-        </h2>
+        {!showForm ? (
+          <>
+            <div className={styles.greeting}>Hello, {userName}</div>
+            <button className={styles.manageBtn} onClick={() => setManageMode(prev => !prev)}>
+              {manageMode ? "Done" : "Manage Vehicles"}
+            </button>
+            <div className={styles.subText}>Select vehicle or add a new one.</div>
+            
+            <div className={styles.vehicleGrid}>
+              {vehicles.map((vehicle, index) => (
+                <button
+                  key={index}
+                  className={styles.vehicleCard}
+                  onClick={() => !manageMode && navigate("/schedule")}
+                >
+                  {manageMode && (
+                    <button
+                      className={styles.deleteBtn}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(index);
+                      }}
+                    >
+                      ×
+                    </button>
+                  )}
+                  <div className={styles.vehicleInfo}>
+                    {vehicle.color && <div>{vehicle.color}, </div>}
+                    <div>{vehicle.make}</div>
+                    <div>{vehicle.model}, {vehicle.year}</div>
+                  </div>
+                </button>
+              ))}
+              
+              <button 
+                className={`${styles.vehicleCard} ${styles.addCard}`}
+                onClick={() => setShowForm(true)}
+              >
+                <div className={styles.plusIcon}>+</div>
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <button 
+              className={styles.backButton}
+              onClick={() => setShowForm(false)}
+            >
+              ← Back to vehicles
+            </button>
+            
+            <h2 className={styles.formHeading}>
+              Add a <span className={styles.highlight}>New Vehicle</span>
+            </h2>
             
             <form className={styles.form} onSubmit={handleSave}>
               <input 
@@ -93,18 +166,8 @@ export default function Vehicles() {
                 Submit
               </button>
             </form>
-            
-            {vehicles.length > 0 && (
-              <div className={styles.continueSection}>
-                <button 
-                  type="button" 
-                  className={styles.continueBtn} 
-                  onClick={() => navigate("/schedule")}
-                >
-                  Continue to Schedule Appointment
-                </button>
-              </div>
-            )}
+          </>
+        )}
       </div>
     </div>
   );
