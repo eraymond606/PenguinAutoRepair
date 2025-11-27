@@ -1,18 +1,18 @@
 // client/src/App.js
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 
 // import your new pages
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import ForgotPassword from "./pages/ForgotPassword";
-import VerifyCode from "./pages/VerifyCode";
-import ResetPassword from "./pages/ResetPassword";
-import Vehicles from "./pages/Vehicles";
-import Schedule from "./pages/Schedule";
-import AppointmentConfirmed from "./pages/AppointmentConfirmed";
+import Login from "./pages/Login/Login";
+import Signup from "./pages/Signup/Signup";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import VerifyCode from "./pages/VerifyCode/VerifyCode";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import Vehicles from "./pages/Vehicles/Vehicles";
+import Schedule from "./pages/Schedule/Schedule";
+import AppointmentConfirmed from "./pages/AppointmentConfirmed/AppointmentConfirmed";
 
 export default function App() {
   return (

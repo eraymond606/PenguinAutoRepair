@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Schedule.module.css";
 import * as api from "../../lib/api";
-import AuthLayout from "../../components/layout/AuthLayout";
 
 function buildMonthMatrix(year, month) {
   const first = new Date(year, month, 1);
@@ -96,7 +95,12 @@ export default function Schedule() {
   };
 
   return (
-    <AuthLayout title="Schedule Appointment" showDots={false}>
+    <div className={styles.pageWrapper}>
+      <div className={styles.hero} style={{ backgroundImage: 'url(/images/hero.jpg)' }}>
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>Schedule Appointment</h1>
+        </div>
+      </div>
       <div className={styles.scheduleGrid}>
         <div className={styles.calendarCol}>
           <div className={styles.monthControls}>
@@ -204,6 +208,6 @@ export default function Schedule() {
           <button className={styles.btnPrimary} onClick={confirm} disabled={confirming}>{confirming ? "Confirming…" : "Confirm"}</button>
         </div>
       </div>
-    </AuthLayout>
+    </div>
   );
 }

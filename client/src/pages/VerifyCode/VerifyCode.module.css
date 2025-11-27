@@ -1,59 +1,41 @@
 /* VerifyCode page styles */
 
-.authForm {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  width: 100%;
+.verifyWrapper {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.subText {
   max-width: 420px;
-  margin: 0 auto;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #005a8d;
 }
 
-.authForm input {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 15px;
-}
-
-.authForm input:focus {
-  outline: 2px solid #0b4e88;
-  border-color: transparent;
-}
-
-.codeRow {
+.codeInputs {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 14px;
+  margin: 32px auto;
 }
 
-.codeBox {
-  width: 56px;
-  height: 56px;
-  text-align: center;
-  font-size: 24px;
+.codeInput {
+  width: 64px;
+  height: 64px;
+  background: #ffffff;
+  border: 2px solid #c7d5e8;
+  border-radius: 12px;
+  font-size: 32px;
   font-weight: 600;
-  border: 2px solid #ccc;
-  border-radius: 8px;
-}
-
-.codeBox:focus {
+  color: #005a8d;
+  text-align: center;
   outline: none;
-  border-color: #0b4e88;
+  transition: all 0.2s ease;
 }
 
-.authBtn {
-  background: #0b4e88;
-  color: #fff;
-  border: none;
-  padding: 14px 28px;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.authBtn:hover {
-  background: #094270;
+.codeInput:focus {
+  border-color: #005a8d;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 90, 141, 0.15);
 }

@@ -1,38 +1,82 @@
-/* Signup page styles */
+/* Signup page styles - matching Figma "Create Account" design */
 
-.authForm {
+/* Container - centers content within full-width white background */
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 900px;
+  padding: 60px 40px 80px;
+}
+
+/* "Create Account" title */
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0b4e88;
+  margin: 0 0 36px 0;
+  text-align: center;
+}
+
+/* Form container */
+.signupForm {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 28px;
+  text-align: left;
+}
+
+/* 2-column grid for input fields */
+.fieldsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  column-gap: 24px;
+}
+
+/* Input field styling */
+.input {
   width: 100%;
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-.authForm input {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 10px;
+  border: 1px solid #d6dbe2;
+  padding: 14px 16px;
   font-size: 15px;
+  outline: none;
+  background: #f4f6f8;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.authForm input:focus {
-  outline: 2px solid #0b4e88;
-  border-color: transparent;
+.input::placeholder {
+  color: #9aa6b2;
 }
 
-.authBtn {
-  background: #0b4e88;
-  color: #fff;
+.input:focus {
+  border-color: #0b4e88;
+  box-shadow: 0 0 0 3px rgba(11, 78, 136, 0.1);
+}
+
+/* Submit button - wide pill centered at bottom */
+.submitButton {
   border: none;
-  padding: 14px 28px;
-  border-radius: 8px;
+  border-radius: 999px;
+  padding: 16px 48px;
+  font-size: 18px;
   font-weight: 700;
-  font-size: 15px;
+  background: #0b4e88;
+  color: #ffffff;
   cursor: pointer;
-  transition: background 0.2s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  max-width: 400px;
+  width: 100%;
+  margin: 12px auto 0;
 }
 
-.authBtn:hover {
+.submitButton:hover {
   background: #094270;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.submitButton:active {
+  transform: translateY(0);
 }

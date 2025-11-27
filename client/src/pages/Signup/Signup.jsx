@@ -15,73 +15,115 @@ export default function Signup() {
     confirm: "",
   });
 
-  const handle = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handle = (e) =>
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+
+  const validatePassword = (password) => {
+    // At least 8 characters
+    if (password.length < 8) {
+      return "Password must be at least 8 characters long";
+    }
+    // At least one capital letter
+    if (!/[A-Z]/.test(password)) {
+      return "Password must contain at least one capital letter";
+    }
+    // At least one symbol (! _ + * = #)
+    if (!/[!_+*=#]/.test(password)) {
+      return "Password must contain at least one symbol (! _ + * = #)";
+    }
+    // At least one number (1-9)
+    if (!/[1-9]/.test(password)) {
+      return "Password must contain at least one number (1-9)";
+    }
+    return null;
+  };
 
   const submit = async (e) => {
     e.preventDefault();
     try {
-      // basic client-side validation
-      if (!form.email || !form.password) {
-        alert("Please provide email and password.");
+      // Validate password
+      const passwordError = validatePassword(form.password);
+      if (passwordError) {
+        alert(passwordError);
+        return;
+      }
+
+      // Check if passwords match
+      if (form.password !== form.confirm) {
+        alert("Passwords do not match");
         return;
       }
 
       await api.signup(form);
-      // after signup, send user to login page
       navigate("/login");
     } catch (err) {
-      console.error("Signup failed", err);
-      alert("Signup failed. Please try again.");
+      console.error(err);
+      alert("Signup failed");
     }
   };
 
   return (
-    <AuthLayout title="Create Account">
-      <form className={styles.authForm} onSubmit={submit}>
-        <input
-          name="first"
-          placeholder="First Name"
-          value={form.first}
-          onChange={handle}
-        />
-        <input
-          name="last"
-          placeholder="Last Name"
-          value={form.last}
-          onChange={handle}
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handle}
-        />
-        <input
-          name="phone"
-          placeholder="Phone Number"
-          value={form.phone}
-          onChange={handle}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handle}
-        />
-        <input
-          type="password"
-          name="confirm"
-          placeholder="Confirm Password"
-          value={form.confirm}
-          onChange={handle}
-        />
+    <AuthLayout>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Create Account</h1>
 
-        <button type="submit" className={styles.authBtn}>
-          Submit
-        </button>
-      </form>
+        <form className={styles.signupForm} onSubmit={submit}>
+          <div className={styles.fieldsGrid}>
+            <input
+              name="first"
+              placeholder="First Name"
+              value={form.first}
+              onChange={handle}
+              className={styles.input}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={form.email}
+              onChange={handle}
+              className={styles.input}
+            />
+            <input
+              name="last"
+              placeholder="Last Name"
+              value={form.last}
+              onChange={handle}
+              className={styles.input}
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Create Password"
+              value={form.password}
+              onChange={handle}
+              className={styles.input}
+            />
+            <input
+              name="phone"
+              placeholder="Phone Number"
+              value={form.phone}
+              onChange={handle}
+              className={styles.input}
+            />
+            <input
+              type="password"
+              name="confirm"
+              placeholder="Confirm Password"
+              value={form.confirm}
+              onChange={handle}
+              className={styles.input}
+            />
+          </div>
+
+          <button type="submit" className={styles.submitButton}>
+            Submit
+          </button>
+        </form>
+      </div>
     </AuthLayout>
   );
 }

@@ -1,8 +1,8 @@
-// src/pages/Login/Login.jsx
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import * as api from "../../lib/api";
 import styles from "./Login.module.css";
+import AuthLayout from "../../components/layout/AuthLayout";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -27,32 +27,35 @@ export default function Login() {
   };
 
   return (
-    <div className={styles.page}>
-      <section
-        className={styles.hero}
-        style={{ backgroundImage: `url('/images/hero.jpg')` }}
-      />
+    <AuthLayout title="Sign In">
+      <div className={`auth-main ${styles.loginWrapper}`}>
+        <h1 className="auth-title">Sign In</h1>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Sign In</h1>
+        <form className="auth-form" onSubmit={submit}>
+          <div className={styles.loginInputs}>
+            <div>
+              <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" required />
+            </div>
 
-        <form className={styles.form} onSubmit={submit}>
-          <label>Email</label>
-          <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" />
-
-          <label>Password</label>
-          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
-
-          <div className={styles.forgotLink}>
-            <a href="/forgot-password">Forgot password?</a>
+            <div className={styles.passwordField}>
+              <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" required />
+              <div className={styles.forgotLink}>
+                <a href="/forgot-password">Forgot password?</a>
+              </div>
+            </div>
           </div>
 
-          <div className={styles.actions}>
-            <button className={styles.btnPrimary} type="submit" disabled={loading}>{loading ? "Signing in..." : "Log In"}</button>
-            <button className={styles.btnText} type="button" onClick={() => navigate("/signup")}>Sign Up</button>
+          <div className={styles.buttonGroup}>
+            <button className="auth-btn" type="submit" disabled={loading}>
+              {loading ? "Signing in..." : "Log In"}
+            </button>
+
+            <button className={styles.signupBtn} type="button" onClick={() => navigate("/signup")}>
+              Sign Up
+            </button>
           </div>
         </form>
-      </main>
-    </div>
+      </div>
+    </AuthLayout>
   );
 }

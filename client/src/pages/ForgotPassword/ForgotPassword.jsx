@@ -10,25 +10,29 @@ export default function ForgotPassword() {
   const submit = (e) => {
     e.preventDefault();
     console.log("FORGOT PASSWORD", email);
-    // In a real app we'd send the email to the server. For the mock flow,
-    // navigate to the verify code screen inside the SPA.
     navigate("/verify-code");
   };
 
   return (
     <AuthLayout title="Forgot Password">
-      <form className={styles.authForm} onSubmit={submit}>
-        <input
-          type="email"
-          placeholder="Please enter the email on file"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+      <div className={`auth-main ${styles.forgotWrapper}`}>
+        <h2 className="auth-title">Verify Email</h2>
+        <p className="auth-sub">Please enter the email on file</p>
 
-        <button type="submit" className={styles.authBtn}>
-          Submit
-        </button>
-      </form>
+        <form className="auth-form" onSubmit={submit}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <button type="submit" className="auth-btn">
+            Submit
+          </button>
+        </form>
+      </div>
     </AuthLayout>
   );
 }

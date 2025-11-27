@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Vehicles.module.css";
-import AuthLayout from "../../components/layout/AuthLayout";
 
 const STORAGE_KEY = "vehicles";
 
@@ -25,7 +24,6 @@ export default function Vehicles() {
 
   const handleSave = (e) => {
     e.preventDefault();
-    // minimal validation
     if (!form.make || !form.model || !form.year) {
       alert("Please provide at least year, make and model.");
       return;
@@ -38,38 +36,76 @@ export default function Vehicles() {
   };
 
   return (
-    <AuthLayout title="Vehicles" showDots={false}>
-      <div className={styles.pageContent}>
-        <div className={styles.pageHero}>
-          <h1 className={styles.title}>Vehicles</h1>
-        </div>
-        <div className={styles.formSection}>
-          <h2 className={styles.formHeading}>Add a <span className={styles.formNew}>New Vehicle</span></h2>
-          <form className={styles.form} onSubmit={handleSave}>
-            <div className={styles.formGrid}>
-              <input name="make" placeholder="Make" value={form.make} onChange={handleChange} />
-              <input name="color" placeholder="Color" value={form.color} onChange={handleChange} />
-              <input name="model" placeholder="Model" value={form.model} onChange={handleChange} />
-              <input name="vin" placeholder="VIN Number" value={form.vin} onChange={handleChange} />
-              <input name="year" placeholder="Year" value={form.year} onChange={handleChange} />
-              <input name="plate" placeholder="License Plate" value={form.plate} onChange={handleChange} />
-            </div>
-            <button type="submit" className={styles.formSubmit}>Submit</button>
-          </form>
-          
-          {vehicles.length > 0 && (
-            <div style={{ marginTop: 28, textAlign: 'center' }}>
-              <button 
-                type="button" 
-                className={styles.scheduleBtn} 
-                onClick={() => navigate("/schedule")}
-              >
-                Continue to Schedule Appointment
+    <div className={styles.pageWrapper}>
+      <div className={styles.hero} style={{ backgroundImage: 'url(/images/hero.jpg)' }}></div>
+      <div className={styles.container}>
+        <h1 className={styles.heroTitle}>Vehicles</h1>
+        
+        <h2 className={styles.formHeading}>
+          Add a <span className={styles.highlight}>New Vehicle</span>
+        </h2>
+            
+            <form className={styles.form} onSubmit={handleSave}>
+              <input 
+                name="make" 
+                placeholder="Make" 
+                value={form.make} 
+                onChange={handleChange}
+                className={styles.input}
+              />
+              <input 
+                name="color" 
+                placeholder="Color" 
+                value={form.color} 
+                onChange={handleChange}
+                className={styles.input}
+              />
+              <input 
+                name="model" 
+                placeholder="Model" 
+                value={form.model} 
+                onChange={handleChange}
+                className={styles.input}
+              />
+              <input 
+                name="vin" 
+                placeholder="VIN Number" 
+                value={form.vin} 
+                onChange={handleChange}
+                className={styles.input}
+              />
+              <input 
+                name="year" 
+                placeholder="Year" 
+                value={form.year} 
+                onChange={handleChange}
+                className={styles.input}
+              />
+              <input 
+                name="plate" 
+                placeholder="License Plate" 
+                value={form.plate} 
+                onChange={handleChange}
+                className={styles.input}
+              />
+              
+              <button type="submit" className={styles.submitBtn}>
+                Submit
               </button>
-            </div>
-          )}
-        </div>
+            </form>
+            
+            {vehicles.length > 0 && (
+              <div className={styles.continueSection}>
+                <button 
+                  type="button" 
+                  className={styles.continueBtn} 
+                  onClick={() => navigate("/schedule")}
+                >
+                  Continue to Schedule Appointment
+                </button>
+              </div>
+            )}
       </div>
-    </AuthLayout>
+    </div>
   );
 }

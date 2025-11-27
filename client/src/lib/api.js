@@ -1,13 +1,7 @@
-// src/lib/api.js
-// Lightweight mock API for frontend development.
-// These functions simulate async network calls and return predictable mock data.
-
 const delay = (ms = 600) => new Promise((res) => setTimeout(res, ms));
 
 export async function signup(payload) {
-  // payload: { first, last, email, phone, password }
   await delay(700);
-  // return a simple user object (no real auth)
   return {
     id: Date.now(),
     name: `${payload.first || ""} ${payload.last || ""}`.trim(),
@@ -17,14 +11,12 @@ export async function signup(payload) {
 
 export async function login({ email, password }) {
   await delay(600);
-  // very small validation to keep the flow realistic
   if (!email || !password) {
     const err = new Error("Invalid credentials");
     err.code = 401;
     throw err;
   }
 
-  // return a fake token + user
   return {
     token: `fake-token-${Date.now()}`,
     user: { email, name: "Customer" },
