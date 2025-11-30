@@ -33,6 +33,14 @@ export default function Header() {
           >
             Schedule Service
           </button>
+
+          <button
+            className="btn btn--sm btn--tertiary"
+            onClick={() => navigate("/staff/login")}
+            style={{ marginLeft: '0.5rem' }}
+          >
+            Staff Login
+          </button>
         </div>
       </div>
     </header>

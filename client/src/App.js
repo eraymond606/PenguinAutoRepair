@@ -13,6 +13,9 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Vehicles from "./pages/Vehicles/Vehicles";
 import Schedule from "./pages/Schedule/Schedule";
 import AppointmentConfirmed from "./pages/AppointmentConfirmed/AppointmentConfirmed";
+import StaffLogin from "./pages/StaffLogin/StaffLogin";
+import StaffDashboard from "./pages/StaffDashboard/StaffDashboard";
+import StaffAppointments from "./pages/Staff/StaffAppointments";
 
 export default function App() {
   return (
@@ -34,6 +37,11 @@ export default function App() {
           {/* Scheduling flow */}
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/appointment-confirmed" element={<AppointmentConfirmed />} />
+
+          {/* Staff routes */}
+          <Route path="/staff/login" element={<StaffLogin />} />
+          <Route path="/staff" element={<StaffDashboard />} />
+          <Route path="/staff/appointments" element={<StaffAppointments />} />
         </Routes>
       </main>
 
