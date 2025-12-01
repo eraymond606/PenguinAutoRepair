@@ -4,9 +4,9 @@ import StaffLayout from "../../components/layout/StaffLayout";
 import styles from "./StaffDashboard.module.css";
 
 const SUMMARY_STATS = [
-  { label: "Total Appointments Today", value: "12", color: "#0f4c81" },
-  { label: "In Progress", value: "4", color: "#f59e0b" },
-  { label: "Completed", value: "7", color: "#10b981" },
+  { label: "Total Appointments Today", value: "5", color: "#0f4c81" },
+  { label: "In Progress", value: "1", color: "#f59e0b" },
+  { label: "Completed", value: "1", color: "#10b981" },
   { label: "Estimated Revenue", value: "$3,240", color: "#6366f1" }
 ];
 

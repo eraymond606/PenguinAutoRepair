@@ -21,7 +21,8 @@ const DUMMY_CUSTOMERS = [
         make: "Honda",
         model: "Accord",
         color: "Silver",
-        plate: "ABC-1234"
+        plate: "ABC-1234",
+        vin: "1HGCV1F30JA123456"
       },
       {
         id: 2,
@@ -29,7 +30,8 @@ const DUMMY_CUSTOMERS = [
         make: "Honda",
         model: "CR-V",
         color: "Blue",
-        plate: "XYZ-5678"
+        plate: "XYZ-5678",
+        vin: "3CZRU6H50LM789012"
       }
     ],
     repairs: [
@@ -93,7 +95,8 @@ const DUMMY_CUSTOMERS = [
         make: "Toyota",
         model: "Camry",
         color: "Black",
-        plate: "DEF-9012"
+        plate: "DEF-9012",
+        vin: "4T1B11HK5LU234567"
       }
     ],
     repairs: [
@@ -144,7 +147,8 @@ const DUMMY_CUSTOMERS = [
         make: "Ford",
         model: "F-150",
         color: "Red",
-        plate: "GHI-3456"
+        plate: "GHI-3456",
+        vin: "1FTFW1ET5KFC45678"
       }
     ],
     repairs: [
@@ -182,7 +186,8 @@ const DUMMY_CUSTOMERS = [
         make: "Nissan",
         model: "Altima",
         color: "White",
-        plate: "JKL-7890"
+        plate: "JKL-7890",
+        vin: "1N4BL4BV8MN567890"
       },
       {
         id: 6,
@@ -190,7 +195,8 @@ const DUMMY_CUSTOMERS = [
         make: "Nissan",
         model: "Rogue",
         color: "Gray",
-        plate: "MNO-2345"
+        plate: "MNO-2345",
+        vin: "5N1AT2MV5KC678901"
       }
     ],
     repairs: [
@@ -241,7 +247,8 @@ const DUMMY_CUSTOMERS = [
         make: "Chevrolet",
         model: "Malibu",
         color: "Blue",
-        plate: "PQR-6789"
+        plate: "PQR-6789",
+        vin: "1G1ZD5ST4HF789012"
       }
     ],
     repairs: [
@@ -292,7 +299,8 @@ const DUMMY_CUSTOMERS = [
         make: "Tesla",
         model: "Model 3",
         color: "Black",
-        plate: "STU-1234"
+        plate: "STU-1234",
+        vin: "5YJ3E1EA3NF890123"
       }
     ],
     repairs: [
@@ -330,7 +338,8 @@ const DUMMY_CUSTOMERS = [
         make: "BMW",
         model: "X5",
         color: "White",
-        plate: "VWX-5678"
+        plate: "VWX-5678",
+        vin: "5UXKR0C58J0Y01234"
       }
     ],
     repairs: [
@@ -381,7 +390,8 @@ const DUMMY_CUSTOMERS = [
         make: "Subaru",
         model: "Outback",
         color: "Green",
-        plate: "YZA-9012"
+        plate: "YZA-9012",
+        vin: "4S4BTANC3L3Z12345"
       }
     ],
     repairs: [
@@ -528,6 +538,10 @@ export default function StaffCustomers() {
                         <div className={styles.vehicleDetail}>
                           <span className={styles.vehicleLabel}>Plate:</span>
                           <span className={styles.vehiclePlate}>{vehicle.plate}</span>
+                        </div>
+                        <div className={styles.vehicleDetail}>
+                          <span className={styles.vehicleLabel}>VIN:</span>
+                          <span className={styles.vehicleVin}>{vehicle.vin}</span>
                         </div>
                       </div>
                     </div>

@@ -255,6 +255,13 @@
   color: #1a1a1a;
 }
 
+.vehicleVin {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #0f4c81;
+  font-size: 13px;
+}
+
 .noSelection {
   display: flex;
   align-items: center;
