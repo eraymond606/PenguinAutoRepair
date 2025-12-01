@@ -356,6 +356,52 @@ app.post('/api/auth/signup', async (req, res) => {
   }
 });
 
+// POST /api/auth/reset-password  { email, new_password }
+app.post('/api/auth/reset-password', async (req, res) => {
+  if (!pool) return res.status(503).json({ ok: false, error: 'db-not-configured' });
+
+  const { email = '', new_password = '' } = req.body || {};
+
+  if (!email || !new_password) {
+    return res.status(400).json({ ok: false, error: 'missing-fields' });
+  }
+  if (new_password.length < 8) {
+    return res.status(422).json({ ok: false, error: 'weak-password' });
+  }
+
+  const emailNorm = normalizeEmail(email);
+
+  try {
+    // Find customer by email
+    const cRes = await pool.query(
+      `SELECT customer_id FROM customers WHERE LOWER(email) = $1 LIMIT 1`,
+      [emailNorm]
+    );
+
+    if (cRes.rowCount === 0) {
+      return res.status(404).json({ ok: false, error: 'customer-not-found' });
+    }
+
+    const customerId = cRes.rows[0].customer_id;
+
+    // Hash the new password
+    const hash = await bcrypt.hash(new_password, 10);
+
+    // Update or insert the password hash
+    await pool.query(
+      `INSERT INTO customer_auth (customer_id, password_hash)
+       VALUES ($1, $2)
+       ON CONFLICT (customer_id) DO UPDATE SET password_hash = EXCLUDED.password_hash`,
+      [customerId, hash]
+    );
+
+    return res.json({ ok: true, message: 'Password reset successful.' });
+  } catch (err) {
+    console.error('[auth/reset-password error]', err);
+    return res.status(500).json({ ok: false, error: 'server-error' });
+  }
+});
+
 // POST /api/vehicles - add a vehicle for a customer
 // Body: { customer_id, make, model, year, color, plate, vin }
 app.post('/api/vehicles', async (req, res) => {
@@ -1889,10 +1935,11 @@ app.post('/api/repairs/:repairId/parts', async (req, res) => {
 
     const qty = quantity || 1;
 
-    // Insert into repair_parts
+    // Insert into repair_parts (or update quantity if already exists)
     const insertResult = await client.query(
       `INSERT INTO repair_parts (repair_id, part_id, quantity, unit_cost)
        VALUES ($1, $2, $3, $4)
+       ON CONFLICT (repair_id, part_id) DO UPDATE SET quantity = repair_parts.quantity + EXCLUDED.quantity
        RETURNING repair_id, part_id, quantity, unit_cost`,
       [repairId, part_id, qty, partCost]
     );

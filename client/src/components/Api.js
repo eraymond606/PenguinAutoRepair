@@ -11,6 +11,7 @@ export const getHealth = () => api.get('/health');
 export const authLogin  = (payload) => api.post('/auth/login', payload);
 export const authSignup = (payload) => api.post('/auth/signup', payload);
 export const authForgot = (payload) => api.post('/auth/forgot', payload);
+export const authResetPassword = (payload) => api.post('/auth/reset-password', payload);
 export const addVehicle = (payload) => api.post('/vehicles', payload);
 export const fetchCustomerVehicles = (customer_id) => api.get(`/vehicles/by-customer/${customer_id}`);
 export const getServices = () => api.get('/services');

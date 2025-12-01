@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../MobileResetPassword.css';
 import logo192 from '../assets/logo192.png';
+import { authResetPassword } from './Api';
 
 export default function MobileResetPassword() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export default function MobileResetPassword() {
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const validatePassword = (pwd) => {
     if (pwd.length < 8) {
@@ -27,8 +29,9 @@ export default function MobileResetPassword() {
     return '';
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
 
     const passwordError = validatePassword(password);
     if (passwordError) {
@@ -41,9 +44,31 @@ export default function MobileResetPassword() {
       return;
     }
 
-    // For prototype: just show success and redirect to login
-    alert('Password reset successful! Please log in with your new password.');
-    navigate('/mobile/login');
+    if (!email) {
+      alert('Email not found. Please start the forgot password process again.');
+      navigate('/mobile/forgot');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { data } = await authResetPassword({ email, new_password: password });
+      if (data?.ok) {
+        alert('Password reset successful! Please log in with your new password.');
+        navigate('/mobile/login');
+      } else {
+        alert(data?.error || 'Failed to reset password.');
+      }
+    } catch (err) {
+      console.error(err);
+      if (err.response?.status === 404) {
+        alert('Account not found. Please check your email.');
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -92,8 +117,8 @@ export default function MobileResetPassword() {
           autoComplete="new-password"
         />
 
-        <button type="submit" className="reset-submit">
-          Submit
+        <button type="submit" className="reset-submit" disabled={loading}>
+          {loading ? 'Resetting...' : 'Submit'}
         </button>
       </form>
     </div>
