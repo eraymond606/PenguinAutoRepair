@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../MobileEmployeeAppointmentDetail.css';
-import { getAppointmentById, getRepairByAppointment, updateRepairStatus, getParts, addRepairPart, getRepairParts } from './Api';
+import { getAppointmentById, getRepairByAppointment, updateRepairStatus, getParts, addRepairPart, getRepairParts, deleteRepairPart } from './Api';
 
 const capitalize = (str) => {
   if (!str) return '';
@@ -21,6 +21,8 @@ export default function MobileEmployeeAppointmentDetail() {
   const [availableParts, setAvailableParts] = useState([]);
   const [assignedParts, setAssignedParts] = useState([]);
   const [addingPart, setAddingPart] = useState(false);
+  const [deletingPart, setDeletingPart] = useState(null);
+  const [confirmDeletePart, setConfirmDeletePart] = useState(null);
 
   useEffect(() => {
     // Check if employee is logged in
@@ -141,6 +143,38 @@ export default function MobileEmployeeAppointmentDetail() {
     } finally {
       setAddingPart(false);
     }
+  };
+
+  const handleDeletePart = (part) => {
+    if (deletingPart || !repair) return;
+    setConfirmDeletePart(part);
+  };
+
+  const confirmDelete = async () => {
+    if (!confirmDeletePart || !repair) return;
+
+    const part = confirmDeletePart;
+    setConfirmDeletePart(null);
+    setDeletingPart(part.part_id);
+
+    try {
+      const { data } = await deleteRepairPart(repair.repair_id, part.part_id);
+
+      if (data?.ok) {
+        await loadAssignedParts(repair.repair_id);
+      } else {
+        alert(data?.error || 'Failed to remove part');
+      }
+    } catch (err) {
+      console.error('Failed to remove part:', err);
+      alert('Failed to remove part');
+    } finally {
+      setDeletingPart(null);
+    }
+  };
+
+  const cancelDelete = () => {
+    setConfirmDeletePart(null);
   };
 
   const handleLogout = () => {
@@ -265,8 +299,13 @@ export default function MobileEmployeeAppointmentDetail() {
               <span className="plus-icon">+</span>
             </button>
             {assignedParts.map((part) => (
-              <div key={part.part_id} className="assigned-part">
-                {part.name}
+              <div
+                key={part.part_id}
+                className={`assigned-part ${deletingPart === part.part_id ? 'deleting' : ''}`}
+                onClick={() => handleDeletePart(part)}
+                title="Click to remove"
+              >
+                {part.name}{part.quantity > 1 ? ` (x${part.quantity})` : ''}
               </div>
             ))}
           </div>
@@ -306,6 +345,26 @@ export default function MobileEmployeeAppointmentDetail() {
                   </button>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Confirm Delete Modal */}
+      {confirmDeletePart && (
+        <div className="confirm-modal-overlay" onClick={cancelDelete}>
+          <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
+            <h3 className="confirm-modal-title">Remove Part</h3>
+            <p className="confirm-modal-message">
+              Remove one <strong>{confirmDeletePart.name}</strong> from this repair?
+            </p>
+            <div className="confirm-modal-buttons">
+              <button className="confirm-btn cancel" onClick={cancelDelete}>
+                Cancel
+              </button>
+              <button className="confirm-btn delete" onClick={confirmDelete}>
+                Remove
+              </button>
             </div>
           </div>
         </div>

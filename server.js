@@ -1979,6 +1979,89 @@ app.post('/api/repairs/:repairId/parts', async (req, res) => {
   }
 });
 
+// DELETE /api/repairs/:repairId/parts/:partId - Remove one quantity of a part from a repair and update invoice
+app.delete('/api/repairs/:repairId/parts/:partId', async (req, res) => {
+  if (!pool) {
+    return res.status(503).json({ ok: false, error: 'db-not-configured' });
+  }
+
+  const { repairId, partId } = req.params;
+
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // Get the repair to find the appointment_id
+    const repairResult = await client.query(
+      `SELECT repair_id, appointment_id FROM repairs WHERE repair_id = $1`,
+      [repairId]
+    );
+
+    if (repairResult.rowCount === 0) {
+      await client.query('ROLLBACK');
+      return res.status(404).json({ ok: false, error: 'repair-not-found' });
+    }
+
+    const appointmentId = repairResult.rows[0].appointment_id;
+
+    // Get the repair_part to check quantity and cost
+    const partResult = await client.query(
+      `SELECT quantity, unit_cost FROM repair_parts WHERE repair_id = $1 AND part_id = $2`,
+      [repairId, partId]
+    );
+
+    if (partResult.rowCount === 0) {
+      await client.query('ROLLBACK');
+      return res.status(404).json({ ok: false, error: 'part-not-assigned' });
+    }
+
+    const { quantity, unit_cost } = partResult.rows[0];
+    const singlePartCost = parseFloat(unit_cost || 0);
+
+    if (quantity <= 1) {
+      // Delete the repair_part entirely if quantity is 1 or less
+      await client.query(
+        `DELETE FROM repair_parts WHERE repair_id = $1 AND part_id = $2`,
+        [repairId, partId]
+      );
+    } else {
+      // Decrement quantity by 1
+      await client.query(
+        `UPDATE repair_parts SET quantity = quantity - 1 WHERE repair_id = $1 AND part_id = $2`,
+        [repairId, partId]
+      );
+    }
+
+    // Update invoice to subtract the cost of one part
+    const invoiceResult = await client.query(
+      `SELECT invoice_id, subtotal FROM invoices WHERE appointment_id = $1`,
+      [appointmentId]
+    );
+
+    if (invoiceResult.rowCount > 0) {
+      const invoice = invoiceResult.rows[0];
+      const newSubtotal = Math.max(0, parseFloat(invoice.subtotal) - singlePartCost);
+      const taxRate = 0.065;
+      const newTax = newSubtotal * taxRate;
+
+      await client.query(
+        `UPDATE invoices SET subtotal = $1, tax = $2 WHERE invoice_id = $3`,
+        [newSubtotal.toFixed(2), newTax.toFixed(2), invoice.invoice_id]
+      );
+    }
+
+    await client.query('COMMIT');
+
+    return res.json({ ok: true });
+  } catch (err) {
+    await client.query('ROLLBACK');
+    console.error('[repairs/delete-part error]', err);
+    return res.status(500).json({ ok: false, error: 'server-error' });
+  } finally {
+    client.release();
+  }
+});
+
 // 404
 app.use('/api', (_req, res) => res.status(404).json({ error: 'Not found' }));
 

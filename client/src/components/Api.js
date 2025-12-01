@@ -59,6 +59,7 @@ export const getRepairByAppointment = (appointmentId) => api.get(`/repairs/by-ap
 export const updateRepairStatus = (repairId, status) => api.patch(`/repairs/${repairId}/status`, { status });
 export const getRepairParts = (repairId) => api.get(`/repairs/${repairId}/parts`);
 export const addRepairPart = (repairId, payload) => api.post(`/repairs/${repairId}/parts`, payload);
+export const deleteRepairPart = (repairId, partId) => api.delete(`/repairs/${repairId}/parts/${partId}`);
 
 export default api;
 
