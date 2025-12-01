@@ -45,9 +45,9 @@ export default function MobileEmployeeLogin() {
 
         // Role-based routing
         if (data.technician.position?.toLowerCase() === 'manager') {
-          navigate('/mobile/manager/appointments');
+          navigate('/mobile/manager/select');
         } else {
-          navigate('/mobile/employee/dashboard');
+          navigate('/mobile/employee/schedule');
         }
       } else {
         alert('Invalid credentials.');

@@ -1,4 +1,7 @@
+@import './shared-mobile-styles.css';
+
 .appointment-detail-screen {
+  position: relative;
   background: white;
   min-height: 100vh;
   padding: 0;
@@ -17,7 +20,7 @@
   z-index: 10;
 }
 
-.back-button {
+.detail-header .back-button {
   background: none;
   border: none;
   color: #0d5a8a;
@@ -28,12 +31,27 @@
   order: 1;
 }
 
-.back-button:hover {
+.detail-header .back-button:hover {
   text-decoration: underline;
 }
 
 .detail-header .hamburger-menu {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   order: 2;
+  margin-left: auto;
+}
+
+.detail-header .hamburger-line {
+  width: 24px;
+  height: 3px;
+  background: #0d5a8a;
+  border-radius: 2px;
 }
 
 .detail-content {

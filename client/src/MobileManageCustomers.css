@@ -1,0 +1,214 @@
+@import './shared-mobile-styles.css';
+
+.manage-customers-screen {
+  position: relative;
+  background: #fff;
+  min-height: 100vh;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Hamburger menu - positioned top right */
+.manage-customers-screen .hamburger-menu {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+}
+
+.manage-customers-screen .hamburger-line {
+  width: 24px;
+  height: 3px;
+  background: #0d5a8a;
+  border-radius: 2px;
+}
+
+.manage-customers-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0d5a8a;
+  margin: 60px 0 24px 0;
+  text-align: center;
+}
+
+/* Table Styles */
+.customers-table {
+  width: 95%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+.customers-table .table-header {
+  display: flex;
+  padding: 8px 10px;
+  font-weight: 600;
+  color: #0d5a8a;
+  font-size: 12px;
+  min-width: fit-content;
+}
+
+.customers-table .header-col {
+  flex: 1;
+  min-width: 80px;
+  text-align: center;
+}
+
+.customers-table .table-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.customer-row {
+  display: flex;
+  background: #e8e8e8;
+  border-radius: 4px;
+  padding: 10px;
+  min-height: 20px;
+  min-width: fit-content;
+}
+
+.customer-row.clickable {
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.customer-row.clickable:hover {
+  background: #ddd;
+}
+
+.customer-row.clickable:active {
+  transform: scale(0.98);
+}
+
+.customer-col {
+  flex: 1;
+  min-width: 80px;
+  color: #0d5a8a;
+  font-weight: 500;
+  font-size: 13px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.manage-customers-screen .loading-message,
+.no-customers {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 15px;
+}
+
+/* Modal Styles */
+.manage-customers-screen .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.manage-customers-screen .modal-content {
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 320px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.manage-customers-screen .modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0d5a8a;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.customer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.customer-input {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #d6e3ee;
+  border-radius: 22px;
+  padding: 12px 16px;
+  font-size: 15px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(13, 79, 122, 0.08);
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.customer-input:focus {
+  border-color: #0d5a8a;
+  box-shadow: 0 4px 12px rgba(13, 90, 138, 0.15);
+}
+
+.customer-input::placeholder {
+  color: #999;
+}
+
+/* Modal buttons */
+.manage-customers-screen .modal-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.manage-customers-screen .submit-btn {
+  flex: 1;
+  background: #0d5a8a;
+  color: #fff;
+  border: none;
+  border-radius: 28px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(13, 90, 138, 0.25);
+}
+
+.manage-customers-screen .submit-btn:hover {
+  background: #094a72;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(13, 90, 138, 0.3);
+}
+
+.manage-customers-screen .submit-btn:active {
+  transform: translateY(0);
+}
+
+.manage-customers-screen .submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}

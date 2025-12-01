@@ -1,4 +1,7 @@
+@import './shared-mobile-styles.css';
+
 .manager-appointments-screen {
+  position: relative;
   background: #f5f5f5;
   min-height: 100vh;
   padding: 0;
@@ -9,7 +12,7 @@
   background: white;
   padding: 20px 16px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   border-bottom: 1px solid #e0e0e0;
   position: sticky;
@@ -17,15 +20,28 @@
   z-index: 10;
 }
 
+/* Back button in header */
+.manager-header .back-link {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .manager-title {
   font-size: 20px;
   font-weight: 600;
   color: #0d5a8a;
   margin: 0;
-  flex: 1;
+  text-align: center;
 }
 
-.hamburger-menu {
+/* Hamburger menu in header */
+.manager-header .hamburger-menu {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   border: none;
   padding: 8px;
@@ -33,10 +49,9 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  order: 2;
 }
 
-.hamburger-line {
+.manager-header .hamburger-line {
   width: 24px;
   height: 3px;
   background: #0d5a8a;

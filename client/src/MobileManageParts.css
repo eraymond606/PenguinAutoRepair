@@ -1,0 +1,390 @@
+@import './shared-mobile-styles.css';
+
+.manage-parts-screen {
+  position: relative;
+  background: #fff;
+  min-height: 100vh;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Hamburger menu - positioned top right */
+.manage-parts-screen .hamburger-menu {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+}
+
+.manage-parts-screen .hamburger-line {
+  width: 24px;
+  height: 3px;
+  background: #0d5a8a;
+  border-radius: 2px;
+}
+
+.manage-parts-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0d5a8a;
+  margin: 60px 0 24px 0;
+  text-align: center;
+}
+
+/* Table Styles */
+.parts-table {
+  width: 95%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+.parts-table .table-header {
+  display: flex;
+  padding: 8px 10px;
+  font-weight: 600;
+  color: #0d5a8a;
+  font-size: 12px;
+  min-width: fit-content;
+}
+
+.header-col {
+  flex: 1;
+  min-width: 50px;
+  text-align: center;
+}
+
+.header-col:nth-child(2) {
+  flex: 1.5;
+  min-width: 70px;
+}
+
+.header-col:nth-child(3) {
+  flex: 1.5;
+  min-width: 70px;
+}
+
+.parts-table .table-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.part-row {
+  display: flex;
+  background: #e8e8e8;
+  border-radius: 4px;
+  padding: 10px;
+  min-height: 20px;
+  min-width: fit-content;
+}
+
+.part-row.clickable {
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.part-row.clickable:hover {
+  background: #ddd;
+}
+
+.part-row.clickable:active {
+  transform: scale(0.98);
+}
+
+.part-col {
+  flex: 1;
+  min-width: 50px;
+  color: #0d5a8a;
+  font-weight: 500;
+  font-size: 13px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.part-col:nth-child(2) {
+  flex: 1.5;
+  min-width: 70px;
+}
+
+.part-col:nth-child(3) {
+  flex: 1.5;
+  min-width: 70px;
+}
+
+.manage-parts-screen .loading-message,
+.no-parts {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 15px;
+}
+
+/* Add New Button */
+.manage-parts-screen .add-new-btn {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0d5a8a;
+  color: white;
+  border: none;
+  border-radius: 28px;
+  padding: 14px 48px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(13, 90, 138, 0.25);
+}
+
+.manage-parts-screen .add-new-btn:hover {
+  background: #094a72;
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 10px 20px rgba(13, 90, 138, 0.3);
+}
+
+.manage-parts-screen .add-new-btn:active {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Modal Styles */
+.manage-parts-screen .modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.manage-parts-screen .modal-content {
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px 20px;
+  width: 100%;
+  max-width: 320px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.manage-parts-screen .modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0d5a8a;
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+.part-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.part-input {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #d6e3ee;
+  border-radius: 22px;
+  padding: 12px 16px;
+  font-size: 15px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(13, 79, 122, 0.08);
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.part-input:focus {
+  border-color: #0d5a8a;
+  box-shadow: 0 4px 12px rgba(13, 90, 138, 0.15);
+}
+
+.part-input::placeholder {
+  color: #999;
+}
+
+/* Modal buttons */
+.manage-parts-screen .modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  gap: 16px;
+}
+
+.manage-parts-screen .submit-btn {
+  flex: 1;
+  background: #0d5a8a;
+  color: #fff;
+  border: none;
+  border-radius: 28px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 18px rgba(13, 90, 138, 0.25);
+}
+
+.manage-parts-screen .submit-btn:hover {
+  background: #094a72;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(13, 90, 138, 0.3);
+}
+
+.manage-parts-screen .submit-btn:active {
+  transform: translateY(0);
+}
+
+.manage-parts-screen .submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Delete button */
+.manage-parts-screen .delete-btn {
+  background: transparent;
+  color: #c9302c;
+  border: none;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.manage-parts-screen .delete-btn:hover {
+  color: #a02622;
+}
+
+.manage-parts-screen .delete-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Delete Confirmation Modal (Bottom Sheet) */
+.manage-parts-screen .delete-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  z-index: 200;
+}
+
+.manage-parts-screen .delete-modal {
+  background: #fff;
+  border-radius: 20px 20px 0 0;
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.manage-parts-screen .delete-modal-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0d5a8a;
+  text-align: center;
+  margin: 0 0 16px 0;
+}
+
+.manage-parts-screen .delete-modal-message {
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0 0 28px 0;
+}
+
+.manage-parts-screen .delete-modal-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.manage-parts-screen .cancel-delete-btn {
+  flex: 1;
+  background: #fff;
+  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 24px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.manage-parts-screen .cancel-delete-btn:hover {
+  background: #f5f5f5;
+  border-color: #999;
+}
+
+.manage-parts-screen .cancel-delete-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.manage-parts-screen .confirm-delete-btn {
+  flex: 1;
+  background: #c9302c;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.manage-parts-screen .confirm-delete-btn:hover {
+  background: #a02622;
+}
+
+.manage-parts-screen .confirm-delete-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

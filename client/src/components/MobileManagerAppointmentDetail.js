@@ -3,6 +3,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../MobileManagerAppointmentDetail.css';
 import { getAppointmentById, getAvailableTechnicians, reassignTechnician } from './Api';
 
+const capitalize = (str) => {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
+
 export default function MobileManagerAppointmentDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -66,7 +71,8 @@ export default function MobileManagerAppointmentDetail() {
       return;
     }
 
-    const confirmMsg = `Reassign this appointment to ${availableTechs.find(t => t.technician_id === techId)?.first_name} ${availableTechs.find(t => t.technician_id === techId)?.last_name}?`;
+    const selectedTech = availableTechs.find(t => t.technician_id === techId);
+    const confirmMsg = `Reassign this appointment to ${capitalize(selectedTech?.first_name)} ${capitalize(selectedTech?.last_name)}?`;
     if (!window.confirm(confirmMsg)) return;
 
     try {
@@ -107,10 +113,10 @@ export default function MobileManagerAppointmentDetail() {
     return null;
   }
 
-  const customerName = `${appointment.customer_first_name} ${appointment.customer_last_name.charAt(0)}.`;
+  const customerName = `${capitalize(appointment.customer_first_name)} ${capitalize(appointment.customer_last_name).charAt(0)}.`;
   const vehicleDesc = `${appointment.color || ''} ${appointment.year || ''} ${appointment.make} ${appointment.model}`.trim();
   const techName = appointment.tech_first_name && appointment.tech_last_name
-    ? `${appointment.tech_first_name} ${appointment.tech_last_name.charAt(0)}.`
+    ? `${capitalize(appointment.tech_first_name)} ${capitalize(appointment.tech_last_name).charAt(0)}.`
     : 'Not assigned';
 
   return (
@@ -181,7 +187,7 @@ export default function MobileManagerAppointmentDetail() {
                     disabled={reassigning}
                   >
                     <span className="tech-name">
-                      {tech.first_name} {tech.last_name}
+                      {capitalize(tech.first_name)} {capitalize(tech.last_name)}
                     </span>
                     {tech.is_current && (
                       <span className="current-badge">(Current)</span>

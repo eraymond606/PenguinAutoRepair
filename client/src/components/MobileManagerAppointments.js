@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import '../MobileManagerAppointments.css';
 import { getAppointmentsGroupedByDate, getAppointmentsByDate } from './Api';
 
+const capitalize = (str) => {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};
+
 export default function MobileManagerAppointments() {
   const navigate = useNavigate();
   const [groupedDates, setGroupedDates] = useState([]);
@@ -120,6 +125,7 @@ export default function MobileManagerAppointments() {
   return (
     <div className="mobile-frame manager-appointments-screen">
       <div className="manager-header">
+        <button className="back-link" onClick={() => navigate('/mobile/manager/select')}>Back</button>
         <h2 className="manager-title">Appointments Schedule</h2>
         <button className="hamburger-menu" aria-label="Menu">
           <div className="hamburger-line"></div>
@@ -172,7 +178,7 @@ export default function MobileManagerAppointments() {
                             onClick={() => handleAppointmentClick(appt.appointment_id)}
                           >
                             <span className="appt-customer">
-                              {appt.first_name} {appt.last_name.charAt(0)}.
+                              {capitalize(appt.first_name)} {capitalize(appt.last_name).charAt(0)}.
                             </span>
                             <span className="appt-time">
                               {formatTime(appt.start_time)}

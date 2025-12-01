@@ -9,8 +9,8 @@ const bcrypt = require('bcryptjs');
     ssl: { rejectUnauthorized: false }
   });
 
-  const email = 'john.doe@example.com';
-  const plain = 'test1234';
+  const email = process.argv[2] || 'john.doe@example.com';
+  const plain = process.argv[3] || 'test1234';
 
   const client = await pool.connect();
   try {
