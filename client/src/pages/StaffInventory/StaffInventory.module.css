@@ -95,56 +95,91 @@
 /* Table Styles */
 .table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 .table thead {
-  background: #f8fafb;
+  background: #0f4c81;
+  color: white;
 }
 
 .table th {
   text-align: left;
-  padding: 16px;
-  font-size: 14px;
+  padding: 14px 16px;
+  font-size: 13px;
   font-weight: 700;
-  color: #0f4c81;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-bottom: 2px solid #e9f2f9;
+}
+
+.table thead th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.table thead th:last-child {
+  border-top-right-radius: 12px;
 }
 
 .table tbody tr {
-  border-bottom: 1px solid #e9f2f9;
-  transition: background 0.2s ease;
+  background: #f8fafb;
+  border-bottom: 1px solid #e0e5eb;
+  transition: all 0.2s ease;
 }
 
 .table tbody tr:hover {
-  background: #f8fafb;
+  background: #e9f2f9;
+  transform: scale(1.005);
+  box-shadow: 0 2px 8px rgba(15, 76, 129, 0.1);
 }
 
 .table tbody tr:last-child {
   border-bottom: none;
 }
 
+.table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+
+.table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
 .table td {
   padding: 16px;
-  font-size: 15px;
+  font-size: 14px;
   color: #1a1a1a;
 }
 
 .itemName {
-  font-weight: 600;
+  font-weight: 700;
   color: #0f4c81;
 }
 
+.costCell,
+.rateCell {
+  font-weight: 700;
+  color: #059669;
+}
+
 .stockLow {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: #fee2e2;
   color: #dc2626;
   font-weight: 700;
+  font-size: 13px;
 }
 
 .stockNormal {
-  color: #10b981;
-  font-weight: 600;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: #d1fae5;
+  color: #059669;
+  font-weight: 700;
+  font-size: 13px;
 }
 
 /* Responsive Design */

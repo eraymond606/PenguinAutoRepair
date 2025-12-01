@@ -12,7 +12,11 @@ const INITIAL_APPOINTMENTS = [
     vehicle: "2018 Honda Accord",
     service: "Oil Change",
     technician: "Alex Smith",
-    status: "scheduled"
+    status: "scheduled",
+    repairParts: [
+      { id: 1, partName: "Oil Filter", quantity: 1, unitCost: 12.99 },
+      { id: 2, partName: "Motor Oil (5W-30)", quantity: 5, unitCost: 8.50 }
+    ]
   },
   {
     id: 2,
@@ -22,7 +26,11 @@ const INITIAL_APPOINTMENTS = [
     vehicle: "2020 Toyota Camry",
     service: "Brake Inspection",
     technician: "Sarah Johnson",
-    status: "scheduled"
+    status: "scheduled",
+    repairParts: [
+      { id: 3, partName: "Brake Pads (Front)", quantity: 1, unitCost: 45.00 },
+      { id: 4, partName: "Brake Fluid", quantity: 1, unitCost: 15.99 }
+    ]
   },
   {
     id: 3,
@@ -32,7 +40,10 @@ const INITIAL_APPOINTMENTS = [
     vehicle: "2019 Ford F-150",
     service: "Tire Rotation",
     technician: "Alex Smith",
-    status: "in_progress"
+    status: "in_progress",
+    repairParts: [
+      { id: 5, partName: "Wheel Weights", quantity: 4, unitCost: 2.50 }
+    ]
   },
   {
     id: 4,
@@ -42,7 +53,13 @@ const INITIAL_APPOINTMENTS = [
     vehicle: "2021 Nissan Altima",
     service: "Full Service",
     technician: "Sarah Johnson",
-    status: "scheduled"
+    status: "scheduled",
+    repairParts: [
+      { id: 6, partName: "Oil Filter", quantity: 1, unitCost: 12.99 },
+      { id: 7, partName: "Motor Oil (5W-30)", quantity: 5, unitCost: 8.50 },
+      { id: 8, partName: "Air Filter", quantity: 1, unitCost: 22.00 },
+      { id: 9, partName: "Cabin Air Filter", quantity: 1, unitCost: 18.00 }
+    ]
   },
   {
     id: 5,
@@ -52,7 +69,11 @@ const INITIAL_APPOINTMENTS = [
     vehicle: "2017 Chevrolet Malibu",
     service: "Engine Diagnostics",
     technician: "Alex Smith",
-    status: "completed"
+    status: "completed",
+    repairParts: [
+      { id: 10, partName: "Spark Plugs", quantity: 4, unitCost: 9.99 },
+      { id: 11, partName: "Ignition Coil", quantity: 1, unitCost: 65.00 }
+    ]
   }
 ];
 
@@ -74,6 +95,14 @@ export default function StaffAppointments() {
   const handleSelectAppointment = (appointment) => {
     setSelectedId(appointment.id);
     setEditForm({ ...appointment });
+  };
+
+  // Calculate total parts cost
+  const calculateTotalPartsCost = () => {
+    if (!editForm.repairParts || editForm.repairParts.length === 0) return 0;
+    return editForm.repairParts.reduce((total, part) => {
+      return total + (part.quantity * part.unitCost);
+    }, 0);
   };
 
   const handleChange = (e) => {
@@ -205,6 +234,44 @@ export default function StaffAppointments() {
                         </option>
                       ))}
                     </select>
+                  </div>
+
+                  {/* Repair Details Section */}
+                  <div className={styles.repairDetailsSection}>
+                    <h3 className={styles.subsectionTitle}>Repair Details</h3>
+                    
+                    {editForm.repairParts && editForm.repairParts.length > 0 ? (
+                      <>
+                        <div className={styles.partsTable}>
+                          <div className={styles.partsTableHeader}>
+                            <div className={styles.partCol}>Part</div>
+                            <div className={styles.qtyCol}>Quantity</div>
+                            <div className={styles.costCol}>Unit Cost</div>
+                            <div className={styles.totalCol}>Line Total</div>
+                          </div>
+                          
+                          {editForm.repairParts.map((part) => (
+                            <div key={part.id} className={styles.partsTableRow}>
+                              <div className={styles.partCol}>{part.partName}</div>
+                              <div className={styles.qtyCol}>{part.quantity}</div>
+                              <div className={styles.costCol}>${part.unitCost.toFixed(2)}</div>
+                              <div className={styles.totalCol}>
+                                ${(part.quantity * part.unitCost).toFixed(2)}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        
+                        <div className={styles.partsTotalRow}>
+                          <span className={styles.partsTotalLabel}>Total Parts Cost:</span>
+                          <span className={styles.partsTotalValue}>
+                            ${calculateTotalPartsCost().toFixed(2)}
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className={styles.noParts}>No parts assigned to this repair</div>
+                    )}
                   </div>
                   
                   <button type="submit" className={styles.btnPrimary}>

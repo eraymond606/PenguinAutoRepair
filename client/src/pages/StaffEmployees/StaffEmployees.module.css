@@ -1,0 +1,231 @@
+/* Staff Employees page styles */
+
+.employeesContainer {
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.backLink {
+  background: transparent;
+  border: none;
+  color: #005a8d;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 8px 0;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.backLink:hover {
+  color: #0f4c81;
+  text-decoration: underline;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.pageTitle {
+  font-size: 42px;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+  color: #0f4c81;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Content Card */
+.contentCard {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 28px;
+  margin-bottom: 40px;
+}
+
+/* Table Wrapper */
+.tableWrapper {
+  overflow-x: auto;
+  margin-bottom: 24px;
+}
+
+.employeesTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 14px;
+}
+
+.employeesTable thead {
+  background: #0f4c81;
+  color: white;
+}
+
+.employeesTable thead th {
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.employeesTable thead th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.employeesTable thead th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.employeesTable tbody tr {
+  background: #f8fafb;
+  transition: all 0.2s ease;
+}
+
+.employeesTable tbody tr:hover {
+  background: #e9f2f9;
+  transform: scale(1.01);
+  box-shadow: 0 2px 8px rgba(15, 76, 129, 0.15);
+}
+
+.employeesTable tbody td {
+  padding: 16px;
+  border-bottom: 1px solid #e0e5eb;
+  color: #1a1a1a;
+}
+
+.employeesTable tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+
+.employeesTable tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+.employeesTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Special Cell Styling */
+.nameCell {
+  font-weight: 700;
+  color: #0f4c81;
+  white-space: nowrap;
+}
+
+.positionCell {
+  font-weight: 600;
+  color: #374151;
+}
+
+.emailCell {
+  color: #005a8d;
+  font-size: 13px;
+}
+
+.wageCell {
+  font-weight: 700;
+  color: #059669;
+  white-space: nowrap;
+}
+
+.tasksCell {
+  font-style: italic;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* Summary Bar */
+.summaryBar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #e9f2f9;
+  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid #0f4c81;
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.summaryLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summaryValue {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f4c81;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .employeesContainer {
+    max-width: 100%;
+  }
+  
+  .employeesTable {
+    font-size: 13px;
+  }
+  
+  .employeesTable thead th,
+  .employeesTable tbody td {
+    padding: 12px 10px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .pageTitle {
+    font-size: 32px;
+  }
+  
+  .contentCard {
+    padding: 20px;
+  }
+  
+  .summaryBar {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .summaryItem {
+    width: 100%;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .employeesContainer {
+    padding: 0 16px;
+  }
+  
+  .tableWrapper {
+    overflow-x: scroll;
+  }
+  
+  .employeesTable {
+    min-width: 1200px;
+  }
+}

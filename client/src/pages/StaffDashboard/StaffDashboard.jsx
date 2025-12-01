@@ -73,6 +73,16 @@ const QUICK_ACTIONS = [
     label: "View Invoices & Payments",
     path: "/staff/billing",
     icon: "💰"
+  },
+  {
+    label: "Customers & Vehicles",
+    path: "/staff/customers",
+    icon: "👥"
+  },
+  {
+    label: "Manage Employees",
+    path: "/staff/employees",
+    icon: "👔"
   }
 ];
 

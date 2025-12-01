@@ -1,0 +1,403 @@
+/* Staff Customers page styles */
+
+.customersContainer {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.backLink {
+  background: transparent;
+  border: none;
+  color: #005a8d;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 8px 0;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.backLink:hover {
+  color: #0f4c81;
+  text-decoration: underline;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.pageTitle {
+  font-size: 42px;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+  color: #0f4c81;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Content Card */
+.contentCard {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 32px;
+  margin-bottom: 40px;
+  min-height: 600px;
+}
+
+/* Customer List (Left Column) */
+.customerList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-right: 2px solid #e9f2f9;
+  padding-right: 32px;
+}
+
+.searchBox {
+  margin-bottom: 8px;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e5eb;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  background: #f8fafb;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #0f4c81;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.1);
+}
+
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 520px;
+}
+
+.customerRow {
+  background: #f8fafb;
+  border: 2px solid #e0e5eb;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.customerRow:hover {
+  border-color: #005a8d;
+  background: #f0f7fb;
+  transform: translateX(4px);
+}
+
+.customerRow.selected {
+  border-color: #0f4c81;
+  background: #e9f2f9;
+  box-shadow: 0 2px 8px rgba(15, 76, 129, 0.15);
+}
+
+.customerName {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.customerEmail {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.vehicleCount {
+  font-size: 12px;
+  color: #0f4c81;
+  font-weight: 600;
+}
+
+.noResults {
+  text-align: center;
+  padding: 32px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Customer Details (Right Column) */
+.customerDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f4c81;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e9f2f9;
+}
+
+.detailsSection {
+  background: #f8fafb;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 32px;
+}
+
+.detailRow {
+  display: flex;
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e5eb;
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-weight: 600;
+  color: #6b7280;
+  min-width: 100px;
+}
+
+.detailValue {
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.subsectionTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f4c81;
+  margin: 0 0 16px 0;
+}
+
+/* Vehicles Grid */
+.vehiclesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.vehicleCard {
+  background: #f8fafb;
+  border: 2px solid #e0e5eb;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.vehicleCard:hover {
+  border-color: #005a8d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 90, 141, 0.1);
+}
+
+.vehicleHeader {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e0e5eb;
+}
+
+.vehicleYear {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.vehicleMake {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f4c81;
+}
+
+.vehicleInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vehicleDetail {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.vehicleLabel {
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.vehiclePlate {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.noSelection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 400px;
+}
+
+.noSelection p {
+  font-size: 16px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* History Section (Repairs & Invoices) */
+.historySection {
+  background: #f8fafb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.historyTable {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 120px 120px 2fr 100px;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #0f4c81;
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 120px 120px 2fr 100px;
+  gap: 12px;
+  padding: 14px 16px;
+  background: white;
+  border: 1px solid #e0e5eb;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  align-items: center;
+}
+
+.tableRow:hover {
+  border-color: #0f4c81;
+  box-shadow: 0 2px 8px rgba(15, 76, 129, 0.1);
+}
+
+.tableCell {
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.totalAmount {
+  color: #0f4c81;
+  font-size: 15px;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.statusBadge.completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.statusBadge.in_progress {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.statusBadge.scheduled {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.statusBadge.paid {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.statusBadge.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.noData {
+  text-align: center;
+  padding: 24px;
+  color: #9ca3af;
+  font-style: italic;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .contentCard {
+    grid-template-columns: 1fr;
+  }
+
+  .customerList {
+    border-right: none;
+    border-bottom: 2px solid #e9f2f9;
+    padding-right: 0;
+    padding-bottom: 24px;
+  }
+
+  .listWrapper {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .customersContainer {
+    padding: 0 16px;
+  }
+
+  .pageTitle {
+    font-size: 32px;
+  }
+
+  .contentCard {
+    padding: 20px;
+  }
+
+  .vehiclesGrid {
+    grid-template-columns: 1fr;
+  }
+}

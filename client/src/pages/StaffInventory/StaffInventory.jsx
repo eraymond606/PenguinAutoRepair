@@ -8,57 +8,57 @@ const DUMMY_PARTS = [
     id: 1,
     name: "Oil Filter",
     vendor: "ACDelco",
-    unitCost: "$12.99",
-    inStock: 45
+    unitCost: 12.99,
+    quantityInStock: 45
   },
   {
     id: 2,
     name: "Air Filter",
     vendor: "K&N",
-    unitCost: "$24.50",
-    inStock: 32
+    unitCost: 24.50,
+    quantityInStock: 32
   },
   {
     id: 3,
     name: "Brake Pads (Front)",
     vendor: "Brembo",
-    unitCost: "$89.99",
-    inStock: 18
+    unitCost: 89.99,
+    quantityInStock: 18
   },
   {
     id: 4,
     name: "Brake Pads (Rear)",
     vendor: "Brembo",
-    unitCost: "$79.99",
-    inStock: 22
+    unitCost: 79.99,
+    quantityInStock: 22
   },
   {
     id: 5,
     name: "Spark Plugs (Set of 4)",
     vendor: "NGK",
-    unitCost: "$32.00",
-    inStock: 28
+    unitCost: 32.00,
+    quantityInStock: 28
   },
   {
     id: 6,
     name: "Wiper Blades",
     vendor: "Bosch",
-    unitCost: "$18.75",
-    inStock: 56
+    unitCost: 18.75,
+    quantityInStock: 56
   },
   {
     id: 7,
     name: "Battery",
     vendor: "Interstate",
-    unitCost: "$145.00",
-    inStock: 12
+    unitCost: 145.00,
+    quantityInStock: 12
   },
   {
     id: 8,
     name: "Transmission Fluid (1qt)",
     vendor: "Valvoline",
-    unitCost: "$8.50",
-    inStock: 64
+    unitCost: 8.50,
+    quantityInStock: 64
   }
 ];
 
@@ -66,55 +66,55 @@ const DUMMY_SERVICES = [
   {
     id: 1,
     name: "Oil Change",
-    hourlyRate: "$85.00",
+    hourlyRate: 85.00,
     defaultHours: 0.5
   },
   {
     id: 2,
     name: "Brake Inspection",
-    hourlyRate: "$85.00",
+    hourlyRate: 85.00,
     defaultHours: 1.0
   },
   {
     id: 3,
     name: "Brake Replacement",
-    hourlyRate: "$95.00",
+    hourlyRate: 95.00,
     defaultHours: 2.5
   },
   {
     id: 4,
     name: "Tire Rotation",
-    hourlyRate: "$75.00",
+    hourlyRate: 75.00,
     defaultHours: 0.75
   },
   {
     id: 5,
     name: "Engine Diagnostics",
-    hourlyRate: "$105.00",
+    hourlyRate: 105.00,
     defaultHours: 1.5
   },
   {
     id: 6,
     name: "Transmission Service",
-    hourlyRate: "$110.00",
+    hourlyRate: 110.00,
     defaultHours: 3.0
   },
   {
     id: 7,
     name: "Air Conditioning Service",
-    hourlyRate: "$95.00",
+    hourlyRate: 95.00,
     defaultHours: 1.5
   },
   {
     id: 8,
     name: "Battery Replacement",
-    hourlyRate: "$75.00",
+    hourlyRate: 75.00,
     defaultHours: 0.5
   },
   {
     id: 9,
     name: "Wheel Alignment",
-    hourlyRate: "$90.00",
+    hourlyRate: 90.00,
     defaultHours: 1.0
   }
 ];
@@ -165,7 +165,7 @@ export default function StaffInventory() {
                       <th>Part</th>
                       <th>Vendor</th>
                       <th>Unit Cost</th>
-                      <th>In Stock</th>
+                      <th>Quantity In Stock</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -173,10 +173,10 @@ export default function StaffInventory() {
                       <tr key={part.id}>
                         <td className={styles.itemName}>{part.name}</td>
                         <td>{part.vendor}</td>
-                        <td>{part.unitCost}</td>
+                        <td className={styles.costCell}>${part.unitCost.toFixed(2)}</td>
                         <td>
-                          <span className={part.inStock < 20 ? styles.stockLow : styles.stockNormal}>
-                            {part.inStock}
+                          <span className={part.quantityInStock < 20 ? styles.stockLow : styles.stockNormal}>
+                            {part.quantityInStock}
                           </span>
                         </td>
                       </tr>
@@ -198,8 +198,8 @@ export default function StaffInventory() {
                     {DUMMY_SERVICES.map((service) => (
                       <tr key={service.id}>
                         <td className={styles.itemName}>{service.name}</td>
-                        <td>{service.hourlyRate}</td>
-                        <td>{service.defaultHours}</td>
+                        <td className={styles.rateCell}>${service.hourlyRate.toFixed(2)}/hr</td>
+                        <td>{service.defaultHours} hrs</td>
                       </tr>
                     ))}
                   </tbody>

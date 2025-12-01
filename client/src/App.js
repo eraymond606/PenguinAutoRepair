@@ -18,6 +18,8 @@ import StaffDashboard from "./pages/StaffDashboard/StaffDashboard";
 import StaffAppointments from "./pages/Staff/StaffAppointments";
 import StaffInventory from "./pages/StaffInventory/StaffInventory";
 import StaffBilling from "./pages/StaffBilling/StaffBilling";
+import StaffCustomers from "./pages/StaffCustomers/StaffCustomers";
+import StaffEmployees from "./pages/StaffEmployees/StaffEmployees";
 
 export default function App() {
   return (
@@ -46,6 +48,8 @@ export default function App() {
           <Route path="/staff/appointments" element={<StaffAppointments />} />
           <Route path="/staff/inventory" element={<StaffInventory />} />
           <Route path="/staff/billing" element={<StaffBilling />} />
+          <Route path="/staff/customers" element={<StaffCustomers />} />
+          <Route path="/staff/employees" element={<StaffEmployees />} />
         </Routes>
       </main>
 

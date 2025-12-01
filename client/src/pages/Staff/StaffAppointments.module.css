@@ -222,6 +222,110 @@
   font-style: italic;
 }
 
+/* Repair Details Section */
+.repairDetailsSection {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 2px solid #e9f2f9;
+}
+
+.subsectionTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f4c81;
+  margin: 0 0 16px 0;
+}
+
+.partsTable {
+  background: #f8fafb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.partsTableHeader {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 12px;
+  padding: 10px 12px;
+  background: #0f4c81;
+  color: white;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.partsTableRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 12px;
+  padding: 12px;
+  background: white;
+  border: 1px solid #e0e5eb;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.partsTableRow:hover {
+  border-color: #0f4c81;
+  box-shadow: 0 2px 6px rgba(15, 76, 129, 0.1);
+}
+
+.partCol {
+  font-size: 14px;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.qtyCol,
+.costCol,
+.totalCol {
+  font-size: 14px;
+  color: #1a1a1a;
+  text-align: right;
+}
+
+.totalCol {
+  font-weight: 700;
+  color: #0f4c81;
+}
+
+.partsTotalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #e9f2f9;
+  border-radius: 12px;
+  border: 2px solid #0f4c81;
+}
+
+.partsTotalLabel {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.partsTotalValue {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f4c81;
+}
+
+.noParts {
+  text-align: center;
+  padding: 24px;
+  color: #9ca3af;
+  font-style: italic;
+  font-size: 14px;
+  background: #f8fafb;
+  border-radius: 12px;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .contentBox {
