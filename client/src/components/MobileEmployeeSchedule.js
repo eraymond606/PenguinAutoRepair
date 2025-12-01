@@ -98,14 +98,6 @@ export default function MobileEmployeeSchedule() {
     return `${count} appts.`;
   };
 
-  const formatTime = (timestamp) => {
-    const date = new Date(timestamp);
-    let hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12 || 12;
-    return `${hours}:${minutes} ${ampm}`;
-  };
 
   const getWeekRange = (startDate) => {
     const endDate = new Date(startDate);
@@ -240,7 +232,7 @@ export default function MobileEmployeeSchedule() {
                   <span className="appt-customer-name">
                     {formatCustomerName(appt.customer_first_name, appt.customer_last_name)}
                   </span>
-                  <span className="appt-time">{formatTime(appt.start_time)}</span>
+                  <span className="appt-time">{appt.formatted_start_time || 'N/A'}</span>
                 </button>
               ))}
             </div>

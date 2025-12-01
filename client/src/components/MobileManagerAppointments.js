@@ -71,14 +71,6 @@ export default function MobileManagerAppointments() {
     return `${dayName} ${month}/${day}`;
   };
 
-  const formatTime = (timestamp) => {
-    const date = new Date(timestamp);
-    let hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12 || 12;
-    return `${hours}:${minutes} ${ampm}`;
-  };
 
   const getWeekLabel = (dateStr, index, dates) => {
     if (index === 0) return null;
@@ -181,7 +173,7 @@ export default function MobileManagerAppointments() {
                               {capitalize(appt.first_name)} {capitalize(appt.last_name).charAt(0)}.
                             </span>
                             <span className="appt-time">
-                              {formatTime(appt.start_time)}
+                              {appt.formatted_start_time || 'N/A'}
                             </span>
                           </button>
                         ))}

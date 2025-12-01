@@ -92,14 +92,6 @@ export default function MobileManagerAppointmentDetail() {
     }
   };
 
-  const formatTime = (timestamp) => {
-    const date = new Date(timestamp);
-    let hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const ampm = hours >= 12 ? 'pm' : 'am';
-    hours = hours % 12 || 12;
-    return `${hours}:${minutes} ${ampm}`;
-  };
 
   if (loading) {
     return (
@@ -137,7 +129,7 @@ export default function MobileManagerAppointmentDetail() {
 
         <div className="detail-section">
           <span className="detail-label">Time:</span>
-          <span className="detail-value">{formatTime(appointment.start_time)}</span>
+          <span className="detail-value">{appointment.formatted_start_time || 'N/A'}</span>
         </div>
 
         <div className="detail-section">

@@ -865,6 +865,7 @@ app.get('/api/appointments/by-date', async (req, res) => {
          a.start_time,
          a.end_time,
          a.status,
+         TO_CHAR(a.start_time, 'HH12:MI AM') as formatted_start_time,
          c.customer_id,
          c.first_name,
          c.last_name,
@@ -907,6 +908,7 @@ app.get('/api/appointments/:id', async (req, res) => {
          a.start_time,
          a.end_time,
          a.status,
+         TO_CHAR(a.start_time, 'HH12:MI AM') as formatted_start_time,
          c.customer_id,
          c.first_name as customer_first_name,
          c.last_name as customer_last_name,
@@ -1267,6 +1269,7 @@ app.get('/api/technicians/:id/appointments', async (req, res) => {
     const result = await pool.query(
       `SELECT a.appointment_id, a.customer_id, a.vehicle_id, a.service_id,
               a.start_time, a.end_time, a.status,
+              TO_CHAR(a.start_time, 'HH12:MI AM') as formatted_start_time,
               c.first_name as customer_first_name, c.last_name as customer_last_name,
               s.name as service_name,
               v.make, v.model, v.year, v.color
