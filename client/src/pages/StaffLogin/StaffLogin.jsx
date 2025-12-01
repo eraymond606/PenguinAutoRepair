@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import * as api from "../../lib/api";
 import styles from "./StaffLogin.module.css";
 import AuthLayout from "../../components/layout/AuthLayout";
 
@@ -13,11 +14,17 @@ export default function StaffLogin() {
     e.preventDefault();
     setLoading(true);
     
-    // Simulate a brief loading state
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const res = await api.staffLogin({ email, password });
+      sessionStorage.setItem("token", res.token);
+      sessionStorage.setItem("user", JSON.stringify(res.user));
       navigate("/staff");
-    }, 500);
+    } catch (err) {
+      console.error("Staff login error", err);
+      alert("Login failed: " + err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

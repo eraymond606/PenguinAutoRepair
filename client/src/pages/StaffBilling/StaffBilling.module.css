@@ -1,0 +1,215 @@
+/* Staff Billing page styles */
+
+.billingContainer {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.backLink {
+  background: transparent;
+  border: none;
+  color: #005a8d;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 8px 0;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.backLink:hover {
+  color: #0f4c81;
+  text-decoration: underline;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.pageTitle {
+  font-size: 42px;
+  margin: 0 0 8px 0;
+  font-weight: 700;
+  color: #0f4c81;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #6b7280;
+  margin: 0;
+}
+
+/* Content Card */
+.contentCard {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e9f2f9;
+}
+
+.sectionTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f4c81;
+  margin: 0;
+}
+
+.recordCount {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Table */
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background: #f8fafb;
+}
+
+.table th {
+  text-align: left;
+  padding: 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f4c81;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e9f2f9;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #e9f2f9;
+  transition: background 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background: #f8fafb;
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table td {
+  padding: 16px;
+  font-size: 15px;
+  color: #1a1a1a;
+}
+
+.invoiceNumber {
+  font-weight: 600;
+  color: #0f4c81;
+  font-family: 'Courier New', monospace;
+}
+
+.transactionNumber {
+  font-weight: 600;
+  color: #6b7280;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+}
+
+.customerName {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.amount {
+  font-weight: 700;
+  color: #10b981;
+}
+
+/* Status Badges */
+.statusBadge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+/* Invoice Statuses */
+.statusPaid {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.statusPending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.statusOverdue {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Payment Statuses */
+.statusCompleted {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.statusProcessing {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.statusFailed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .billingContainer {
+    padding: 0 16px;
+  }
+
+  .pageTitle {
+    font-size: 32px;
+  }
+
+  .contentCard {
+    padding: 20px;
+  }
+
+  .table {
+    font-size: 14px;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px 8px;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

@@ -16,6 +16,8 @@ import AppointmentConfirmed from "./pages/AppointmentConfirmed/AppointmentConfir
 import StaffLogin from "./pages/StaffLogin/StaffLogin";
 import StaffDashboard from "./pages/StaffDashboard/StaffDashboard";
 import StaffAppointments from "./pages/Staff/StaffAppointments";
+import StaffInventory from "./pages/StaffInventory/StaffInventory";
+import StaffBilling from "./pages/StaffBilling/StaffBilling";
 
 export default function App() {
   return (
@@ -42,6 +44,8 @@ export default function App() {
           <Route path="/staff/login" element={<StaffLogin />} />
           <Route path="/staff" element={<StaffDashboard />} />
           <Route path="/staff/appointments" element={<StaffAppointments />} />
+          <Route path="/staff/inventory" element={<StaffInventory />} />
+          <Route path="/staff/billing" element={<StaffBilling />} />
         </Routes>
       </main>
 

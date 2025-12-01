@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import StaffLayout from "../../components/layout/StaffLayout";
 import styles from "./StaffAppointments.module.css";
 
@@ -63,6 +64,7 @@ const STATUSES = [
 ];
 
 export default function StaffAppointments() {
+  const navigate = useNavigate();
   const [appointments, setAppointments] = useState(INITIAL_APPOINTMENTS);
   const [selectedId, setSelectedId] = useState(null);
   const [editForm, setEditForm] = useState({});
@@ -99,6 +101,12 @@ export default function StaffAppointments() {
   return (
     <StaffLayout>
       <div className={styles.staffContainer}>
+        <button 
+          className={styles.backLink}
+          onClick={() => navigate("/staff")}
+        >
+          ← Back to Dashboard
+        </button>
         <h1 className={styles.pageTitle}>Manage Appointments</h1>
         
         <div className={styles.contentBox}>

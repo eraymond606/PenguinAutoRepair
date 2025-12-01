@@ -62,4 +62,26 @@ export async function getAvailableTimes({ service, date }) {
   return available;
 }
 
-export default { signup, login, createAppointment, getAvailableTimes };
+export async function staffLogin({ email, password }) {
+  await delay(600);
+  
+  if (!email || !password) {
+    const err = new Error("Invalid credentials");
+    err.code = 401;
+    throw err;
+  }
+
+  // Mock staff login - accept any credentials for now
+  return {
+    token: `staff-token-${Date.now()}`,
+    user: {
+      id: 1,
+      email,
+      firstName: "Staff",
+      lastName: "Member",
+      role: "staff"
+    },
+  };
+}
+
+export default { signup, login, createAppointment, getAvailableTimes, staffLogin };
